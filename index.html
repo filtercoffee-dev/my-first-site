@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@6e7052b56bb8ed48c9e24e9abf2f1dae2b372823/assets/favicon.png">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1280&q=50" imagesrcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=768&q=50 768w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1280&q=50 1280w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=45 1920w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=540&q=55&h=675" imagesrcset="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=360&q=55&h=450 360w, https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=540&q=55&h=675 540w, https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=55&h=1000 800w" imagesizes="(max-width:600px) calc(100vw - 50px), (max-width:860px) 440px, 480px" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@6e7052b56bb8ed48c9e24e9abf2f1dae2b372823/assets/fonts/archivo-sub.woff2" crossorigin>
 <style>
@@ -55,24 +56,32 @@ section{padding:96px 0}
 .nav ul a:hover{border-color:var(--brand)}
 
 /* HERO */
-.hero{background:var(--soft);border-bottom:1px solid var(--line);padding:64px 0 120px}
+.hero{position:relative;background:#1d2127;color:#fff;padding:72px 0 128px;overflow:hidden;isolation:isolate}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img,.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-media video{opacity:0;transition:opacity .8s ease}
+.hero-media video.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(18,20,24,.66)}
+.hero .label{color:#fff;opacity:.85}
+.hero .btn-outline{color:#fff;border-color:#fff}
+.hero .btn-outline:hover{background:#fff;color:var(--ink)}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
 .brandbar{display:flex;height:6px;width:150px;margin-bottom:28px}
 .brandbar i{flex:1}
 .hero h1{font-size:clamp(2.3rem,4.6vw,3.8rem);margin:14px 0 18px;max-width:620px}
-.hero p.lead{font-size:1.12rem;color:var(--text);max-width:540px}
+.hero p.lead{font-size:1.12rem;color:rgba(255,255,255,.86);max-width:540px}
 .hero .tagline{font-family:"Kalam",cursive;font-size:1.6rem;color:var(--brand);margin-top:16px;display:block}
-.hero-proof{display:flex;gap:36px;margin-top:36px;padding-top:26px;border-top:1px solid #dcd9d2;flex-wrap:wrap}
+.hero-proof{display:flex;gap:36px;margin-top:36px;padding-top:26px;border-top:1px solid rgba(255,255,255,.22);flex-wrap:wrap}
 .hero-proof strong{display:block;font-size:1.6rem;line-height:1.1}
-.hero-proof span{font-size:.85rem;color:var(--text)}
+.hero-proof span{font-size:.85rem;color:rgba(255,255,255,.72)}
 .founder{position:relative;max-width:480px;justify-self:end;width:100%}
-.founder .frame{aspect-ratio:4/5;background:#e4e1da;position:relative;overflow:hidden}
+.founder .frame{aspect-ratio:4/5;background:#3a3f47;position:relative;overflow:hidden}
 .founder .frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
 .founder .frame .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.9rem;padding:30px}
 .founder .frame .ph img{width:120px;height:auto;object-fit:contain;margin:0 auto 14px;opacity:.9}
 .founder .demo-tag{position:absolute;top:12px;right:12px;background:rgba(29,33,39,.8);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px}
 .founder .accent{position:absolute;left:-18px;top:-18px;width:110px;height:110px;border-left:6px solid var(--brand);border-top:6px solid var(--brand)}
-.founder figcaption{background:#fff;border:1px solid var(--line);padding:22px 24px;margin:-60px 24px 0;position:relative}
+.founder figcaption{color:var(--ink);background:#fff;border:1px solid var(--line);padding:22px 24px;margin:-60px 24px 0;position:relative}
 .founder .vlabel{display:block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:6px}
 .founder blockquote{font-size:1.02rem;color:var(--ink);line-height:1.5}
 .founder .who{margin-top:14px;display:flex;justify-content:space-between;align-items:end;gap:12px}
@@ -307,6 +316,10 @@ footer a:hover{color:#fff}
 </header>
 
 <section class="hero" id="top">
+  <!-- HERO VIDEO: put a short silent loop at assets/hero.mp4 (and optionally assets/hero.webm), then set data-mp4/data-webm below. Empty = poster photo only. -->
+  <div class="hero-media" id="heroMedia" data-mp4="" data-webm="">
+    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1280&q=50" srcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=768&q=50 768w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1280&q=50 1280w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=45 1920w" sizes="100vw" alt="" fetchpriority="high" decoding="async" width="1280" height="853">
+  </div>
   <div class="wrap">
     <div>
       <div class="brandbar" aria-hidden="true"><i style="background:#e5528a"></i><i style="background:#f47b20"></i><i style="background:#f9c21a"></i><i style="background:#29a9e0"></i><i style="background:#6dbe45"></i></div>
@@ -574,6 +587,27 @@ footer a:hover{color:#fff}
 <div class="mbar"><a href="tel:+917200141515">Call Now</a><a href="#enquire">Site Visit</a></div>
 
 <script>
+// Hero video: loads after everything else, skipped on data-saver, slow connections and reduced-motion
+(function(){
+  const box=document.getElementById('heroMedia');if(!box)return;
+  const mp4=box.dataset.mp4,webm=box.dataset.webm;if(!mp4&&!webm)return;
+  const c=navigator.connection||{};
+  if(c.saveData||/(^|-)2g|3g/.test(c.effectiveType||'')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const start=()=>{
+    const v=document.createElement('video');
+    v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.preload='auto';
+    v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');
+    if(webm){const s=document.createElement('source');s.src=webm;s.type='video/webm';v.appendChild(s)}
+    if(mp4){const s=document.createElement('source');s.src=mp4;s.type='video/mp4';v.appendChild(s)}
+    v.addEventListener('playing',()=>v.classList.add('on'),{once:true});
+    box.appendChild(v);v.play().catch(()=>{});
+    // pause when the hero is off screen to save CPU and battery
+    new IntersectionObserver(([e])=>{e.isIntersecting?v.play().catch(()=>{}):v.pause()}).observe(box);
+  };
+  const idle=()=>('requestIdleCallback' in window)?requestIdleCallback(start,{timeout:2000}):setTimeout(start,300);
+  document.readyState==='complete'?idle():addEventListener('load',idle,{once:true});
+})();
+
 // Load photos only when they come near the screen
 const lazy=document.querySelectorAll('img[data-src]');
 const load=img=>{if(img.dataset.srcset)img.srcset=img.dataset.srcset;img.src=img.dataset.src;img.removeAttribute('data-src')};
