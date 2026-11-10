@@ -51,13 +51,27 @@ section{padding:96px 0}
 .nav ul a:hover{border-color:var(--brand)}
 
 /* HERO */
-.hero{position:relative;height:min(82vh,720px);min-height:540px;color:#fff;background:#2b2f35 url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=75") center/cover}
-.hero::before{content:"";position:absolute;inset:0;background:rgba(20,22,26,.5)}
-.hero .wrap{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center}
-.hero .label{color:#fff;opacity:.9}
-.hero h1{font-size:clamp(2.3rem,5vw,4rem);max-width:760px;margin:16px 0 18px;font-weight:700}
-.hero p{font-size:1.15rem;max-width:560px;color:rgba(255,255,255,.88)}
-.hero .tagline{font-family:"Kalam",cursive;font-size:1.5rem;margin-top:14px;color:#fff}
+.hero{background:var(--soft);border-bottom:1px solid var(--line);padding:64px 0 120px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.brandbar{display:flex;height:6px;width:150px;margin-bottom:28px}
+.brandbar i{flex:1}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.8rem);margin:14px 0 18px;max-width:620px}
+.hero p.lead{font-size:1.12rem;color:var(--text);max-width:540px}
+.hero .tagline{font-family:"Kalam",cursive;font-size:1.6rem;color:var(--brand);margin-top:16px;display:block}
+.hero-proof{display:flex;gap:36px;margin-top:36px;padding-top:26px;border-top:1px solid #dcd9d2;flex-wrap:wrap}
+.hero-proof strong{display:block;font-size:1.6rem;line-height:1.1}
+.hero-proof span{font-size:.85rem;color:var(--text)}
+.founder{position:relative;max-width:480px;justify-self:end;width:100%}
+.founder .frame{aspect-ratio:4/5;background:#e4e1da;position:relative;overflow:hidden}
+.founder .frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.founder .frame .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.9rem;padding:30px}
+.founder .frame .ph img{width:120px;height:auto;object-fit:contain;margin:0 auto 14px;opacity:.9}
+.founder .accent{position:absolute;left:-18px;top:-18px;width:110px;height:110px;border-left:6px solid var(--brand);border-top:6px solid var(--brand)}
+.founder figcaption{background:#fff;border:1px solid var(--line);padding:22px 24px;margin:-60px 24px 0;position:relative}
+.founder blockquote{font-size:1.02rem;color:var(--ink);line-height:1.5}
+.founder .who{margin-top:14px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+.founder .who b{display:block;font-size:1rem}
+.founder .who span{font-size:.84rem;color:var(--muted)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
 /* SEARCH BAR */
@@ -202,6 +216,8 @@ footer a:hover{color:#fff}
   .steps{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;gap:56px}
+  .founder{justify-self:start;max-width:440px;margin-left:18px;width:calc(100% - 18px);order:-1}
   section{padding:72px 0}
   .search form{grid-template-columns:1fr 1fr}
   .search .f{border-bottom:1px solid var(--line)}
@@ -223,7 +239,10 @@ footer a:hover{color:#fff}
   .nav .wrap{height:68px}
   .nav img{height:42px}
   .nav .btn{display:none}
-  .hero{min-height:520px;height:auto;padding:80px 0 100px}
+  .hero{padding:40px 0 90px}
+  .founder figcaption{margin:-50px 12px 0;padding:18px}
+  .founder .frame{aspect-ratio:1/1}
+  .founder .accent{width:80px;height:80px;left:-14px;top:-14px}
   .search{margin-top:-40px}
   .search form{grid-template-columns:1fr}
   .search .f{border-right:0}
@@ -281,14 +300,35 @@ footer a:hover{color:#fff}
 
 <section class="hero" id="top">
   <div class="wrap">
-    <span class="label">i5 Housing &amp; Properties</span>
-    <h1>Approved plots, villas and homes across Chennai</h1>
-    <p>Clear titles, bank-loan ready layouts and 80+ projects delivered since 2010.</p>
-    <span class="tagline">Think high, achieve high</span>
-    <div class="hero-actions">
-      <a class="btn btn-brand" href="#projects">View Projects</a>
-      <a class="btn btn-white" href="#enquire">Book a Free Site Visit</a>
+    <div>
+      <div class="brandbar" aria-hidden="true"><i style="background:#e5528a"></i><i style="background:#f47b20"></i><i style="background:#f9c21a"></i><i style="background:#29a9e0"></i><i style="background:#6dbe45"></i></div>
+      <span class="label">i5 Housing &amp; Properties</span>
+      <h1>Building trust in Chennai, one family at a time</h1>
+      <p class="lead">Since 2010, we have helped families own approved plots, villas and homes with clear titles and honest pricing. Every project carries our founder's personal promise.</p>
+      <span class="tagline">Think high, achieve high</span>
+      <div class="hero-actions">
+        <a class="btn btn-brand" href="#projects">View Projects</a>
+        <a class="btn btn-outline" href="#enquire">Book a Free Site Visit</a>
+      </div>
+      <div class="hero-proof">
+        <div><strong>80+</strong><span>Projects delivered</span></div>
+        <div><strong>15+ years</strong><span>In Chennai real estate</span></div>
+        <div><strong>DTCP &amp; RERA</strong><span>Approved projects</span></div>
+      </div>
     </div>
+    <figure class="founder">
+      <span class="accent" aria-hidden="true"></span>
+      <div class="frame">
+        <!-- FOUNDER PHOTO: save the portrait as assets/founder.jpg -->
+        <img src="assets/founder.jpg" alt="Founder of i5 Housing &amp; Properties" onerror="this.remove()">
+        <div class="ph"><div><img src="assets/i5-logo.png" alt="">Founder photo</div></div>
+      </div>
+      <figcaption>
+        <!-- FOUNDER QUOTE, NAME AND TITLE: replace the text below -->
+        <blockquote>"When a family buys land from us, they are trusting us with their future. We never take that lightly."</blockquote>
+        <div class="who"><div><b>Founder Name</b><span>Founder &amp; Managing Director</span></div></div>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
