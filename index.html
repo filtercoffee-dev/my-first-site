@@ -66,6 +66,7 @@ section{padding:96px 0}
 .founder .frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
 .founder .frame .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.9rem;padding:30px}
 .founder .frame .ph img{width:120px;height:auto;object-fit:contain;margin:0 auto 14px;opacity:.9}
+.founder .demo-tag{position:absolute;top:12px;right:12px;background:rgba(29,33,39,.8);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px}
 .founder .accent{position:absolute;left:-18px;top:-18px;width:110px;height:110px;border-left:6px solid var(--brand);border-top:6px solid var(--brand)}
 .founder figcaption{background:#fff;border:1px solid var(--line);padding:22px 24px;margin:-60px 24px 0;position:relative}
 .founder .vlabel{display:block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:6px}
@@ -320,9 +321,10 @@ footer a:hover{color:#fff}
     <figure class="founder">
       <span class="accent" aria-hidden="true"></span>
       <div class="frame">
-        <!-- FOUNDER PHOTO: save the portrait as assets/founder.jpg -->
-        <img src="assets/founder.jpg" alt="Mr. Prasad P, Founder &amp; Managing Director, i5 Housing &amp; Properties" onerror="this.remove()">
         <div class="ph"><img src="assets/i5-logo.png" alt=""></div>
+        <!-- DEMO IMAGE: generic stock portrait. Replace src with assets/founder.jpg once the real founder photo is available, and delete the demo tag. -->
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80" alt="Placeholder portrait (demo image)" onerror="this.remove()" style="position:relative">
+        <span class="demo-tag">Demo image</span>
       </div>
       <figcaption>
         <span class="vlabel">Our vision</span>
