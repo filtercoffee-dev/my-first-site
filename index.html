@@ -1,11 +1,641 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Filter Coffee Dev</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i5 Housing &amp; Properties | Plots, Villas, Apartments &amp; Farmland in Chennai</title>
+<meta name="description" content="DTCP and RERA approved plots, villas, apartments and farmlands across Chennai's fastest-growing corridors. 80+ projects delivered since 2010. Book a free site visit.">
+<link rel="icon" type="image/png" href="assets/i5-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1a2b; --ink-2:#3a4659; --muted:#6b7686; --line:#e6e8ee;
+  --bg:#fbfaf7; --card:#ffffff; --deep:#0c1626; --deep-2:#14233a;
+  --red:#e8262b; --pink:#e5528a; --orange:#f47b20; --yellow:#f9c21a; --blue:#29a9e0; --green:#6dbe45;
+  --grad:linear-gradient(90deg,var(--pink),var(--orange) 35%,var(--yellow) 60%,var(--blue) 80%,var(--green));
+  --radius:22px; --shadow:0 20px 50px -20px rgba(15,26,43,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.eyebrow::before{content:"";width:28px;height:3px;border-radius:3px;background:var(--grad)}
+.script{font-family:"Caveat",cursive;color:var(--orange);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:700;font-size:.98rem;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;box-shadow:0 14px 30px -10px rgba(232,38,43,.6)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-light{background:#fff;color:var(--ink);border:1px solid var(--line)}
+section{padding:110px 0}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-head h2{font-size:clamp(2rem,4.2vw,3.2rem);margin:14px 0 16px}
+.sec-head p{color:var(--ink-2);font-size:1.08rem}
+.center{text-align:center;margin-inline:auto}
+.center .eyebrow{justify-content:center}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s,padding .3s;padding:16px 0}
+.nav.scrolled{background:rgba(251,250,247,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:10px 0}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{background:#fff;border-radius:14px;padding:6px 12px;display:flex;box-shadow:0 6px 20px -8px rgba(0,0,0,.3)}
+.logo img{height:42px;width:auto}
+.nav.scrolled .logo{box-shadow:none;padding:4px 6px}
+.nav ul{display:flex;gap:30px;list-style:none;font-weight:600;font-size:.95rem}
+.nav ul a{color:#fff;opacity:.9;transition:opacity .2s}
+.nav.scrolled ul a{color:var(--ink)}
+.nav ul a:hover{opacity:1}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav-phone{color:#fff;font-weight:700;font-size:.92rem;display:flex;gap:8px;align-items:center}
+.nav.scrolled .nav-phone{color:var(--ink)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:#fff}
+.nav.scrolled .burger{color:var(--ink)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:140px 0 120px;color:#fff;overflow:hidden;
+  background:
+    linear-gradient(100deg,rgba(9,17,30,.94) 0%,rgba(9,17,30,.78) 45%,rgba(9,17,30,.35) 100%),
+    url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=75") center/cover,
+    radial-gradient(1200px 600px at 80% 20%,#24456e,transparent),var(--deep)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--grad)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;position:relative;z-index:2}
+.pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:8px 16px 8px 8px;border-radius:999px;font-size:.85rem;font-weight:600;backdrop-filter:blur(8px)}
+.pill b{white-space:nowrap;background:var(--green);color:#0c1626;padding:3px 10px;border-radius:999px;font-size:.75rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.9rem);margin:24px 0 22px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--yellow),var(--orange),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:1.18rem;color:rgba(255,255,255,.82);max-width:560px}
+.hero .script{font-size:2rem;display:block;margin-top:18px;color:var(--yellow)}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.hero-trust{display:flex;gap:28px;margin-top:46px;flex-wrap:wrap}
+.hero-trust div{display:flex;flex-direction:column}
+.hero-trust strong{font-family:"Fraunces",serif;font-size:2.2rem;line-height:1}
+.hero-trust span{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:6px}
+
+.finder{background:rgba(255,255,255,.97);color:var(--ink);border-radius:28px;padding:32px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.finder h3{font-size:1.6rem;margin-bottom:6px}
+.finder p{color:var(--muted);font-size:.92rem;margin-bottom:22px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.chip{border:1.5px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;display:flex;gap:12px;align-items:center;font-weight:700;font-size:.92rem;background:#fff;transition:all .2s;font-family:inherit;color:var(--ink);text-align:left}
+.chip i{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-size:1.15rem;flex-shrink:0}
+.chip small{display:block;font-weight:500;color:var(--muted);font-size:.75rem}
+.chip:hover{border-color:var(--orange)}
+.chip.active{border-color:var(--orange);background:#fff7f0;box-shadow:0 0 0 3px rgba(244,123,32,.15)}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--ink-2);margin-bottom:6px}
+.field select,.field input{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);font:inherit;font-size:.95rem;background:#fff;color:var(--ink)}
+.field select:focus,.field input:focus{outline:none;border-color:var(--orange)}
+.finder .btn{width:100%;margin-top:6px}
+.finder .note{font-size:.76rem;color:var(--muted);text-align:center;margin-top:12px}
+
+/* TRUST STRIP */
+.strip{background:var(--deep);color:#fff;padding:26px 0;overflow:hidden}
+.marquee{display:flex;gap:56px;animation:scroll 32s linear infinite;width:max-content}
+.marquee span{display:flex;align-items:center;gap:12px;font-weight:600;white-space:nowrap;opacity:.85}
+.marquee span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--yellow)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* AVATARS */
+.avatars{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.avatar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.avatar:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.avatar::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--c)}
+.avatar .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;background:color-mix(in srgb,var(--c) 14%,#fff);margin-bottom:20px}
+.avatar h3{font-size:1.35rem;margin-bottom:6px}
+.avatar .who{font-size:.82rem;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.avatar p{color:var(--ink-2);font-size:.94rem;margin-bottom:18px}
+.avatar ul{list-style:none;font-size:.88rem;display:grid;gap:8px;margin-bottom:22px}
+.avatar li{display:flex;gap:8px}
+.avatar li::before{content:"✓";color:var(--c);font-weight:800}
+.avatar a{margin-top:auto;font-weight:700;font-size:.9rem;display:inline-flex;gap:6px;color:var(--ink)}
+.avatar a:hover{color:var(--c)}
+
+/* FLAGSHIP */
+.flagship{background:var(--deep);color:#fff;position:relative;overflow:hidden}
+.flagship::before{content:"";position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(244,123,32,.25),transparent 60%);top:-200px;right:-200px}
+.flag-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;position:relative}
+.flag-img{border-radius:30px;aspect-ratio:4/5;position:relative;overflow:hidden;
+  background:url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=75") center/cover,linear-gradient(160deg,#3d7a3a,#1d3b2a)}
+.flag-img .tag{position:absolute;top:22px;left:22px;background:var(--yellow);color:var(--ink);font-weight:800;padding:8px 16px;border-radius:999px;font-size:.82rem}
+.flag-img .float{position:absolute;bottom:22px;left:22px;right:22px;background:rgba(255,255,255,.95);color:var(--ink);border-radius:20px;padding:20px;display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.flag-img .float strong{font-family:"Fraunces",serif;font-size:1.7rem;display:block;line-height:1.1}
+.flag-img .float span{font-size:.75rem;color:var(--muted);font-weight:600}
+.flagship h2{font-size:clamp(2.2rem,4.5vw,3.6rem);margin:16px 0 20px}
+.flagship p{color:rgba(255,255,255,.78);font-size:1.06rem}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0 36px}
+.feat div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px}
+.feat b{display:block;font-size:1rem;margin-bottom:4px}
+.feat span{font-size:.85rem;color:rgba(255,255,255,.65)}
+
+/* PROJECTS */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.tab{padding:11px 22px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--ink-2);transition:all .2s}
+.tab.active,.tab:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.proj{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
+.proj:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.proj.hide{display:none}
+.proj-img{aspect-ratio:16/11;position:relative;background-size:cover;background-position:center}
+.proj-img .badge{position:absolute;top:16px;left:16px;background:#fff;padding:6px 12px;border-radius:999px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.proj-img .type{position:absolute;bottom:16px;right:16px;color:#fff;padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--c)}
+.proj-body{padding:22px 24px 24px}
+.proj-body h3{font-size:1.35rem;margin-bottom:6px}
+.proj-body .loc{color:var(--muted);font-size:.9rem;display:flex;gap:6px;align-items:center;margin-bottom:16px}
+.proj-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.proj-meta span{background:var(--bg);border:1px solid var(--line);padding:5px 10px;border-radius:8px;font-size:.78rem;font-weight:600;color:var(--ink-2)}
+.proj-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.proj-foot a{font-weight:700;font-size:.9rem;color:var(--orange)}
+
+/* WHY */
+.why{background:linear-gradient(180deg,#fff,var(--bg))}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.why-card{padding:32px;border-radius:var(--radius);background:#fff;border:1px solid var(--line)}
+.why-card .n{font-family:"Fraunces",serif;font-size:2.8rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px}
+.why-card h3{font-size:1.25rem;margin-bottom:10px}
+.why-card p{color:var(--ink-2);font-size:.95rem}
+
+/* JOURNEY */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;top:30px;left:12%;right:12%;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px)}
+.step{text-align:center;position:relative}
+.step .dot{width:60px;height:60px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;font-weight:800;font-size:1.2rem;color:#fff;background:var(--c);box-shadow:0 0 0 8px var(--bg)}
+.step h3{font-size:1.15rem;margin-bottom:8px}
+.step p{color:var(--ink-2);font-size:.92rem;max-width:240px;margin-inline:auto}
+
+/* CORRIDORS */
+.corridors{background:var(--deep);color:#fff}
+.corridors .sec-head p{color:rgba(255,255,255,.7)}
+.cor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cor{border-radius:20px;padding:26px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));transition:border-color .3s}
+.cor:hover{border-color:var(--c)}
+.cor h3{font-size:1.3rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.cor h3::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 5px color-mix(in srgb,var(--c) 25%,transparent)}
+.cor p{color:rgba(255,255,255,.68);font-size:.92rem}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 26px;margin-bottom:14px;transition:box-shadow .3s}
+details[open]{box-shadow:var(--shadow)}
+summary{font-weight:700;font-size:1.04rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.5rem;line-height:1;color:var(--orange);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--ink-2);margin-top:12px;font-size:.95rem}
+
+/* CTA */
+.cta{padding:0 0 110px}
+.cta-box{border-radius:36px;padding:70px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(120deg,#1a0f2e,#3a1530 40%,#7a2a1a);display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+.cta-box::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--grad)}
+.cta-box h2{font-size:clamp(2rem,4vw,3.2rem);margin-bottom:16px}
+.cta-box p{color:rgba(255,255,255,.8);font-size:1.06rem}
+.cta-box ul{list-style:none;display:grid;gap:10px;margin-top:24px}
+.cta-box li{display:flex;gap:10px;align-items:center}
+.cta-box li::before{content:"✓";width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--ink);display:grid;place-items:center;font-size:.75rem;font-weight:800;flex-shrink:0}
+.cta-form{background:#fff;color:var(--ink);border-radius:24px;padding:30px}
+.cta-form h3{font-size:1.4rem;margin-bottom:16px}
+
+/* FOOTER */
+footer{background:#08101c;color:rgba(255,255,255,.7);padding:80px 0 30px;font-size:.92rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:50px}
+footer h4{color:#fff;font-size:.95rem;margin-bottom:18px;font-family:"Plus Jakarta Sans",sans-serif}
+footer ul{list-style:none;display:grid;gap:10px}
+footer a:hover{color:#fff}
+.foot-logo{background:#fff;border-radius:14px;padding:10px 14px;display:inline-flex;margin-bottom:18px}
+.foot-logo img{height:54px;width:auto}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.82rem}
+
+/* FLOATING */
+.fab{position:fixed;right:20px;bottom:20px;z-index:60;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.7);transition:transform .2s}
+.fab:hover{transform:scale(1.08)}
+.fab svg{width:30px;height:30px;fill:#fff}
+.mobile-bar{display:none}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.marquee{animation:none}html{scroll-behavior:auto}}
+
+/* RESPONSIVE */
+@media (max-width:1080px){
+  .avatars{grid-template-columns:repeat(2,1fr)}
+  .proj-grid,.why-grid,.cor-grid{grid-template-columns:repeat(2,1fr)}
+  .nav ul{display:none}
+}
+@media (max-width:900px){
+  section{padding:80px 0}
+  .hero-grid,.flag-grid,.faq-grid,.cta-box{grid-template-columns:1fr}
+  .hero{padding:120px 0 80px}
+  .flag-img{aspect-ratio:4/3}
+  .cta-box{padding:40px 26px}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:40px}
+  .steps::before{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-phone span{display:none}
+}
+@media (max-width:640px){
+  .avatars,.proj-grid,.why-grid,.cor-grid,.feat,.foot-grid{grid-template-columns:1fr}
+  .nav-cta .btn{display:none}
+  .logo img{height:34px}
+  .hero-trust{gap:20px}
+  .hero-trust strong{font-size:1.8rem}
+  .finder{padding:24px}
+  .chips{grid-template-columns:1fr 1fr}
+  .chip{padding:10px;font-size:.85rem}
+  .chip i{width:32px;height:32px}
+  .chip small{display:none}
+  .steps{grid-template-columns:1fr}
+  .fab{bottom:84px}
+  .mobile-bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:55;padding:10px 16px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mobile-bar .btn{padding:13px}
+  footer{padding-bottom:100px}
+}
+</style>
 </head>
 <body>
-  <h1>Bye from filtercoffee-dev ☕</h1>
-  <p>This is my first page, live on GitHub Pages.</p>
-  <p>Built step by step while learning Git.</p>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="i5 Housing & Properties home"><img src="assets/i5-logo.png" alt="i5 Housing & Properties"></a>
+    <ul>
+      <li><a href="#for-you">Who it's for</a></li>
+      <li><a href="#i5-palace">i5 Palace</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#why">Why i5</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+917200141515">📞 <span>72001 41515</span></a>
+      <a class="btn btn-primary" href="#visit">Book Site Visit</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="pill"><b>DTCP &amp; RERA</b> Approved projects across Chennai</span>
+      <h1>Own a piece of Chennai's <em>next big address.</em></h1>
+      <p class="lead">Clear-title plots, ready villas, smart apartments and weekend farmlands in the corridors where Chennai is growing fastest. Since 2010, 80+ projects delivered for families who planned ahead.</p>
+      <span class="script">Think high, achieve high.</span>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#visit">Book a Free Site Visit →</a>
+        <a class="btn btn-ghost" href="#projects">Explore Projects</a>
+      </div>
+      <div class="hero-trust">
+        <div><strong data-count="80">0</strong><span>+ projects delivered</span></div>
+        <div><strong data-count="15">0</strong><span>+ years in Chennai</span></div>
+        <div><strong data-count="92">0</strong><span>acre i5 Palace township</span></div>
+      </div>
+    </div>
+
+    <form class="finder reveal" id="finder" onsubmit="return sendEnquiry(event,'finder')">
+      <h3>Find your perfect property</h3>
+      <p>Tell us what you're looking for. We'll shortlist the best options in 24 hours.</p>
+      <div class="chips" role="radiogroup" aria-label="Property type">
+        <button type="button" class="chip active" data-val="Plots"><i style="background:#fff3e6">📐</i><span>Plots<small>From DTCP layouts</small></span></button>
+        <button type="button" class="chip" data-val="Villas"><i style="background:#ffe9f1">🏡</i><span>Villas<small>Independent homes</small></span></button>
+        <button type="button" class="chip" data-val="Apartments"><i style="background:#e6f6fd">🏢</i><span>Apartments<small>Ready &amp; upcoming</small></span></button>
+        <button type="button" class="chip" data-val="Farmland"><i style="background:#eef8e8">🌿</i><span>Farmland<small>Weekend getaways</small></span></button>
+      </div>
+      <div class="field">
+        <label for="f-loc">Preferred location</label>
+        <select id="f-loc" name="location">
+          <option>Guduvanchery / Chengalpattu</option>
+          <option>Kelambakkam / OMR</option>
+          <option>Thiruporur</option>
+          <option>Thiruvannamalai</option>
+          <option>Open to suggestions</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-phone">Your mobile number</label>
+        <input id="f-phone" name="phone" type="tel" placeholder="+91 98xxx xxxxx" required pattern="[0-9+\s-]{10,15}">
+      </div>
+      <button class="btn btn-primary" type="submit">Get My Shortlist</button>
+      <div class="note">🔒 No spam. A property advisor calls you, that's it.</div>
+    </form>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="marquee">
+    <span>DTCP Approved Layouts</span><span>RERA Registered</span><span>100% Clear Title</span><span>Bank Loan Assistance</span><span>Free Site Visit Pickup</span><span>Registration Support</span><span>NRI Friendly Process</span><span>80+ Projects Delivered</span>
+    <span>DTCP Approved Layouts</span><span>RERA Registered</span><span>100% Clear Title</span><span>Bank Loan Assistance</span><span>Free Site Visit Pickup</span><span>Registration Support</span><span>NRI Friendly Process</span><span>80+ Projects Delivered</span>
+  </div>
+</div>
+
+<!-- AVATARS -->
+<section id="for-you">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Built around you</span>
+      <h2>Whatever your next chapter, there's an i5 address for it.</h2>
+      <p>Every buyer comes to us with a different dream. Pick the one that sounds like you and we'll take it from there.</p>
+    </div>
+    <div class="avatars">
+      <article class="avatar reveal" style="--c:var(--orange)">
+        <div class="ico">🔑</div>
+        <div class="who">First-time buyers</div>
+        <h3>Your own land, finally.</h3>
+        <p>Stop paying rent and start building equity with an affordable plot you can build on when you're ready.</p>
+        <ul><li>Low entry prices, easy EMIs</li><li>Bank loan tie-ups</li><li>Paperwork handled end to end</li></ul>
+        <a href="#visit">Plan my first property →</a>
+      </article>
+      <article class="avatar reveal" style="--c:var(--blue)">
+        <div class="ico">💻</div>
+        <div class="who">IT professionals</div>
+        <h3>Live close to work, not in traffic.</h3>
+        <p>Villas and apartments along OMR and Kelambakkam, minutes from the IT corridor, schools and hospitals.</p>
+        <ul><li>Gated communities</li><li>Quick access to SIPCOT &amp; OMR</li><li>Modern amenities</li></ul>
+        <a href="#projects">See OMR projects →</a>
+      </article>
+      <article class="avatar reveal" style="--c:var(--pink)">
+        <div class="ico">✈️</div>
+        <div class="who">NRIs</div>
+        <h3>Invest back home, worry-free.</h3>
+        <p>Video site tours, verified documents and a dedicated advisor, so you can buy confidently from anywhere.</p>
+        <ul><li>Live video walkthroughs</li><li>Power of attorney guidance</li><li>Transparent updates</li></ul>
+        <a href="#visit">Book a video tour →</a>
+      </article>
+      <article class="avatar reveal" style="--c:var(--green)">
+        <div class="ico">📈</div>
+        <div class="who">Investors &amp; retirees</div>
+        <h3>Land that grows with Chennai.</h3>
+        <p>Plots in emerging growth corridors and managed farmlands for steady appreciation and peaceful weekends.</p>
+        <ul><li>High-growth locations</li><li>Managed farmland options</li><li>Easy resale support</li></ul>
+        <a href="#projects">View investment picks →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGSHIP -->
+<section class="flagship" id="i5-palace">
+  <div class="wrap flag-grid">
+    <div class="flag-img reveal">
+      <span class="tag">⭐ Flagship Township</span>
+      <div class="float">
+        <div><strong>92</strong><span>Acres</span></div>
+        <div><strong>DTCP</strong><span>Approved</span></div>
+        <div><strong>Gated</strong><span>Community</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Introducing i5 Palace</span>
+      <h2>A 92-acre township near Guduvanchery.</h2>
+      <p>At Nellikuppam - Keezhur, i5 Palace is a landmark mega township built for families who want space, greenery and long-term value, right on the doorstep of Chennai's fastest-growing southern suburb.</p>
+      <div class="feat">
+        <div><b>🛣️ Wide blacktop roads</b><span>Planned internal road network</span></div>
+        <div><b>🌳 Parks &amp; open spaces</b><span>Room for kids to play</span></div>
+        <div><b>🚆 Well connected</b><span>Near Guduvanchery &amp; GST Road</span></div>
+        <div><b>📄 Clear documentation</b><span>Ready for bank loans</span></div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#visit">Visit i5 Palace This Weekend</a>
+        <a class="btn btn-ghost" href="tel:+917200141515">Call for Price</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Our projects</span>
+      <h2>Handpicked locations. Honest pricing.</h2>
+      <p>Browse by what you're looking for. Ask us for the latest availability and offers on any project.</p>
+    </div>
+    <div class="tabs reveal" role="tablist">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="plots">Plots</button>
+      <button class="tab" data-filter="villas">Villas</button>
+      <button class="tab" data-filter="apartments">Apartments</button>
+      <button class="tab" data-filter="farmland">Farmland</button>
+    </div>
+    <div class="proj-grid">
+      <article class="proj reveal" data-type="plots" style="--c:var(--orange)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#f9c21a,#f47b20)"><span class="badge">Flagship</span><span class="type">Plots</span></div>
+        <div class="proj-body"><h3>i5 Palace</h3><div class="loc">📍 Nellikuppam, Chengalpattu</div>
+          <div class="proj-meta"><span>92 Acres</span><span>DTCP</span><span>Gated</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="plots" style="--c:var(--orange)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#e5528a,#f47b20)"><span class="badge">Plots</span><span class="type">Plots</span></div>
+        <div class="proj-body"><h3>i5 Aurowin Enclave</h3><div class="loc">📍 Chennai South</div>
+          <div class="proj-meta"><span>Residential plots</span><span>DTCP</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="plots" style="--c:var(--orange)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#29a9e0,#6dbe45)"><span class="badge">Plots</span><span class="type">Plots</span></div>
+        <div class="proj-body"><h3>i5 Wonder City</h3><div class="loc">📍 Chennai</div>
+          <div class="proj-meta"><span>Residential plots</span><span>DTCP</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="villas" style="--c:var(--pink)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#e5528a,#7a2a1a)"><span class="badge">Villas</span><span class="type">Villas</span></div>
+        <div class="proj-body"><h3>Gokul Avenue</h3><div class="loc">📍 Chennai</div>
+          <div class="proj-meta"><span>Independent villas</span><span>Gated</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="apartments" style="--c:var(--blue)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#29a9e0,#14233a)"><span class="badge">Apartments</span><span class="type">Apartments</span></div>
+        <div class="proj-body"><h3>i5 AVA Palace</h3><div class="loc">📍 Chennai</div>
+          <div class="proj-meta"><span>2 &amp; 3 BHK</span><span>RERA</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="apartments" style="--c:var(--blue)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#14233a,#29a9e0)"><span class="badge">Apartments</span><span class="type">Apartments</span></div>
+        <div class="proj-body"><h3>Spyka Bliss</h3><div class="loc">📍 Chennai</div>
+          <div class="proj-meta"><span>Apartments</span><span>RERA</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="farmland" style="--c:var(--green)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#6dbe45,#1d3b2a)"><span class="badge">Farmland</span><span class="type">Farmland</span></div>
+        <div class="proj-body"><h3>Kurumba i5 Farms</h3><div class="loc">📍 Tamil Nadu</div>
+          <div class="proj-meta"><span>Managed farmland</span><span>Weekend home</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="farmland" style="--c:var(--green)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#1d3b2a,#6dbe45)"><span class="badge">Farmland</span><span class="type">Farmland</span></div>
+        <div class="proj-body"><h3>Tamara Farms</h3><div class="loc">📍 Tamil Nadu</div>
+          <div class="proj-meta"><span>Managed farmland</span><span>Green living</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+      <article class="proj reveal" data-type="plots" style="--c:var(--orange)">
+        <div class="proj-img" style="background-image:url('https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=900&q=70'),linear-gradient(135deg,#f9c21a,#e8262b)"><span class="badge">Plots</span><span class="type">Plots</span></div>
+        <div class="proj-body"><h3>i5 Palace City</h3><div class="loc">📍 Chennai</div>
+          <div class="proj-meta"><span>Residential plots</span><span>DTCP</span></div>
+          <div class="proj-foot"><a href="#visit">Get price sheet →</a></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Why families trust i5</span>
+      <h2>Real estate without the guesswork.</h2>
+      <p>Buying land is one of the biggest decisions you'll make. Here's how we make it a safe one.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="n">01</div><h3>Approved &amp; verified</h3><p>DTCP and RERA approved projects with clear, legally verified titles. Every document shared upfront.</p></div>
+      <div class="why-card reveal"><div class="n">02</div><h3>15+ years of delivery</h3><p>Operating since 2010 with 80+ projects completed across Chennai and Tamil Nadu.</p></div>
+      <div class="why-card reveal"><div class="n">03</div><h3>Loans made simple</h3><p>Tie-ups with leading banks so your plot or home is loan-ready, with help at every step.</p></div>
+      <div class="why-card reveal"><div class="n">04</div><h3>Free site visits</h3><p>Pick-up and drop for site visits. See the land, the roads and the neighbourhood for yourself.</p></div>
+      <div class="why-card reveal"><div class="n">05</div><h3>Registration support</h3><p>From booking to registration, our team handles the paperwork so you don't have to.</p></div>
+      <div class="why-card reveal"><div class="n">06</div><h3>Growth locations</h3><p>We choose corridors with upcoming infrastructure, so your investment appreciates over time.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Your journey</span>
+      <h2>From enquiry to keys in 4 simple steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal" style="--c:var(--pink)"><div class="dot">1</div><h3>Share your needs</h3><p>Tell us your budget, location and purpose.</p></div>
+      <div class="step reveal" style="--c:var(--orange)"><div class="dot">2</div><h3>Visit the site</h3><p>Free pick-up, guided tour, no pressure.</p></div>
+      <div class="step reveal" style="--c:var(--blue)"><div class="dot">3</div><h3>Verify &amp; book</h3><p>Review documents and lock in your unit.</p></div>
+      <div class="step reveal" style="--c:var(--green)"><div class="dot">4</div><h3>Register &amp; own</h3><p>We handle loans and registration with you.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CORRIDORS -->
+<section class="corridors">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Where we build</span>
+      <h2>Chennai's high-growth corridors.</h2>
+      <p>We pick locations backed by infrastructure, jobs and connectivity, so today's price becomes tomorrow's gain.</p>
+    </div>
+    <div class="cor-grid">
+      <div class="cor reveal" style="--c:var(--orange)"><h3>Guduvanchery</h3><p>Southern growth hub on GST Road with suburban rail access.</p></div>
+      <div class="cor reveal" style="--c:var(--yellow)"><h3>Chengalpattu</h3><p>Home to i5 Palace and a fast-developing residential belt.</p></div>
+      <div class="cor reveal" style="--c:var(--blue)"><h3>Kelambakkam / OMR</h3><p>Next to the IT corridor, schools and healthcare.</p></div>
+      <div class="cor reveal" style="--c:var(--pink)"><h3>Thiruporur</h3><p>Peaceful living with rising demand off OMR.</p></div>
+      <div class="cor reveal" style="--c:var(--green)"><h3>Thiruvannamalai</h3><p>Spiritual town, farmlands and second homes.</p></div>
+      <div class="cor reveal" style="--c:var(--red)"><h3>Valasaravakkam</h3><p>Our head office. Drop in for a coffee and a chat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap faq-grid">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Questions</span>
+      <h2>Good questions, straight answers.</h2>
+      <p>Can't find what you're looking for? Call us on <a href="tel:+917200141515" style="color:var(--orange);font-weight:700">72001 41515</a>.</p>
+    </div>
+    <div class="reveal">
+      <details open><summary>Are your projects DTCP and RERA approved?</summary><p>Yes. Our plots, villas, apartments and farmlands are DTCP and RERA approved where applicable, and approval details are shared with every buyer before booking.</p></details>
+      <details><summary>Can I get a bank loan for a plot?</summary><p>Yes. Our approved layouts are eligible for loans from leading banks, and our team helps with the documentation.</p></details>
+      <details><summary>Do you offer free site visits?</summary><p>Absolutely. We arrange pick-up and drop for site visits on weekdays and weekends. Book a slot using the form on this page.</p></details>
+      <details><summary>I live abroad. Can I still buy?</summary><p>Yes. NRIs can explore projects through live video tours, review documents online and complete the purchase with guidance on power of attorney.</p></details>
+      <details><summary>What documents will I receive?</summary><p>You'll receive the sale deed, approval copies, encumbrance certificate, patta and other title documents as applicable to the project.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="visit">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--yellow)">This weekend</span>
+        <h2>See it. Walk it. Love it.</h2>
+        <p>Book a free, no-obligation site visit. We'll pick you up, show you around and answer every question.</p>
+        <ul><li>Free pick-up and drop</li><li>Meet a dedicated property advisor</li><li>Exclusive site-visit offers</li></ul>
+      </div>
+      <form class="cta-form" id="visitForm" onsubmit="return sendEnquiry(event,'visit')">
+        <h3>Book your free site visit</h3>
+        <div class="field"><label for="v-name">Full name</label><input id="v-name" name="name" required placeholder="Your name"></div>
+        <div class="field"><label for="v-phone">Mobile number</label><input id="v-phone" name="phone" type="tel" required placeholder="+91 98xxx xxxxx" pattern="[0-9+\s-]{10,15}"></div>
+        <div class="field"><label for="v-int">I'm interested in</label>
+          <select id="v-int" name="interest"><option>i5 Palace (92-acre township)</option><option>Plots</option><option>Villas</option><option>Apartments</option><option>Farmland</option></select></div>
+        <button class="btn btn-primary" type="submit" style="width:100%">Confirm My Visit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo"><img src="assets/i5-logo.png" alt="i5 Housing & Properties"></div>
+        <p>Trusted Chennai real estate developer since 2010. DTCP and RERA approved plots, villas, apartments and farmlands.</p>
+      </div>
+      <div><h4>Explore</h4><ul><li><a href="#projects">Plots</a></li><li><a href="#projects">Villas</a></li><li><a href="#projects">Apartments</a></li><li><a href="#projects">Farmland</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#why">Why i5</a></li><li><a href="#i5-palace">i5 Palace</a></li><li><a href="#faq">FAQ</a></li><li><a href="#visit">Site Visit</a></li></ul></div>
+      <div><h4>Get in touch</h4><ul>
+        <li>📞 <a href="tel:+917200141515">+91 72001 41515</a></li>
+        <li>📍 Valasaravakkam, Chennai, Tamil Nadu</li>
+        <li><a class="btn btn-primary" href="#visit" style="margin-top:8px;padding:12px 20px">Book Site Visit</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> i5 Housing &amp; Properties. All rights reserved.</span><span class="script" style="font-size:1.4rem">Think high, achieve high.</span></div>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/917200141515?text=Hi%20i5%20Housing%2C%20I'd%20like%20to%20know%20more%20about%20your%20projects." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.3.6 4.5 1.8 6.4L3 29l7.1-2c1.8 1 3.9 1.5 6 1.5 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.5C5.2 9.8 10 5.1 16 5.1s10.7 4.8 10.7 10.6S21.9 26.2 16 26.2zm5.9-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2s0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.6-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.6 4.9.8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<div class="mobile-bar">
+  <a class="btn btn-light" href="tel:+917200141515">📞 Call Now</a>
+  <a class="btn btn-primary" href="#visit">Site Visit</a>
+</div>
+
+<script>
+// Sticky nav
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',scrollY>40);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// Reveal on scroll + counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const countIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;const el=e.target,end=+el.dataset.count;let t0=null;
+  const tick=t=>{t0??=t;const p=Math.min((t-t0)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)};
+  requestAnimationFrame(tick);countIO.unobserve(el)}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+// Property-type chips
+let chosenType='Plots';
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');chosenType=c.dataset.val}));
+
+// Project filter
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  const f=t.dataset.filter;document.querySelectorAll('.proj').forEach(p=>{p.classList.toggle('hide',f!=='all'&&p.dataset.type!==f);if(!p.classList.contains('hide'))p.classList.add('in')})}));
+
+// Enquiries go to the sales team on WhatsApp (no backend needed)
+function sendEnquiry(e,src){
+  e.preventDefault();const f=e.target;let msg;
+  if(src==='finder'){msg=`Hi i5 Housing, I'm looking for ${chosenType} in ${f.location.value}. My number: ${f.phone.value}`}
+  else{msg=`Hi i5 Housing, I'd like to book a free site visit.\nName: ${f.name.value}\nPhone: ${f.phone.value}\nInterested in: ${f.interest.value}`}
+  window.open('https://wa.me/917200141515?text='+encodeURIComponent(msg),'_blank');
+  f.reset();return false}
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
