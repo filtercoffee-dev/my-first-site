@@ -19,6 +19,9 @@
   --bg:#ffffff; --soft:#f5f4f1; --dark:#1d2127;
   --brand:#ee6a1f; --brand-ink:#c4510e; --brand-ink-dark:#a8440c; --green:#3f9b3a;
   --muted:#666d78;
+  /* property types, from the logo palette, darkened for AA text */
+  --c-plots:#3f7d2a; --c-villas:#b8336a; --c-apartments:#1f6f9c; --c-farmland:#8a6a00;
+  --ease-out:cubic-bezier(.16,1,.3,1);
   --fs-label:.75rem; --fs-small:.875rem; --fs-body:1rem; --fs-lead:1.125rem; --fs-item:1.125rem; --fs-h3:1.25rem;
   --fs-h2:clamp(1.75rem,3.2vw,2.5rem); --fs-h1:clamp(2.25rem,4.6vw,3.75rem);
 }
@@ -44,6 +47,21 @@ h1,h2,h3{font-weight:700;line-height:1.15;letter-spacing:-.01em}
 .btn-brand{background:var(--brand-ink);color:#fff}
 .btn-brand:hover{background:var(--brand-ink-dark)}
 .btn:disabled{opacity:.6;cursor:wait}
+.btn:active,.card .actions a:active,.mbar a:active{transform:scale(.97);transition:transform .1s}
+.sent:not([hidden]){animation:sent-in .35s var(--ease-out)}
+@keyframes sent-in{from{opacity:0;transform:translateY(6px)}}
+details[open] p{animation:faq-in .3s var(--ease-out)}
+@keyframes faq-in{from{opacity:0;transform:translateY(-4px)}}
+/* signature moment: a project card morphs into the booking form */
+::view-transition-group(visit){animation-duration:.6s;animation-timing-function:var(--ease-out)}
+::view-transition-old(visit){animation:vt-fade-out .25s var(--ease-out) both}
+::view-transition-new(visit){animation:vt-fade-in .35s .15s var(--ease-out) both}
+::view-transition-old(visit),::view-transition-new(visit){height:100%;width:100%;object-fit:cover;object-position:top}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.3s}
+::view-transition-group(*){animation-timing-function:var(--ease-out)}
+@keyframes vt-fade-out{to{opacity:0}}
+@keyframes vt-fade-in{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.sent:not([hidden]),details[open] p{animation:none}.btn:active,.card .actions a:active,.mbar a:active{transform:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 .btn-outline{border-color:currentColor;color:var(--ink);background:transparent}
 .btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 section{padding:96px 0}
@@ -113,15 +131,18 @@ section{padding:96px 0}
 /* PROJECTS */
 .tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:36px;overflow-x:auto}
 .tab{padding:14px 22px;border:0;background:none;font:500 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.tab[aria-pressed="true"],.tab:hover{color:var(--ink);border-color:var(--brand)}
+.tab{--c:var(--brand)}
+.tab[aria-pressed="true"],.tab:hover{color:var(--ink);border-color:var(--c)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.card{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+.card{--c:var(--brand-ink);background:#fff;border:1px solid var(--line);border-top:3px solid var(--c);display:flex;flex-direction:column}
+.card[data-type="plots"]{--c:var(--c-plots)}.card[data-type="villas"]{--c:var(--c-villas)}.card[data-type="apartments"]{--c:var(--c-apartments)}.card[data-type="farmland"]{--c:var(--c-farmland)}
+.tab[data-filter="plots"]{--c:var(--c-plots)}.tab[data-filter="villas"]{--c:var(--c-villas)}.tab[data-filter="apartments"]{--c:var(--c-apartments)}.tab[data-filter="farmland"]{--c:var(--c-farmland)}
 .card.hide{display:none}
 .card .img{aspect-ratio:4/3;background:#d9d6d0;position:relative;overflow:hidden}
 .card .img img,.feature .photo img,.enquiry .photo img{width:100%;height:100%;object-fit:cover}
 .card .status{position:absolute;top:0;left:0;background:#fff;padding:8px 12px}
 .card .body{padding:22px 22px 0;flex:1}
-.card .type{color:var(--brand-ink)}
+.card .type{color:var(--c)}
 .illus{position:absolute;right:8px;bottom:8px;background:rgba(29,33,39,.78);color:#fff;padding:4px 8px;pointer-events:none;white-space:nowrap}
 .card h3{font-size:1.375rem;line-height:1.2;letter-spacing:-.005em;margin:6px 0 4px}
 .card .loc{color:var(--text);font-size:var(--fs-small);display:flex;gap:6px;align-items:center}
@@ -640,13 +661,36 @@ if('IntersectionObserver' in window){
 }else lazy.forEach(load);
 
 // Project filter
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const canMorph=()=>!!document.startViewTransition&&!reduceMotion.matches;
+const cards=[...document.querySelectorAll('.card')];
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-pressed',x===t?'true':'false'));
-  const f=t.dataset.filter;document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.type!==f))}));
+  const f=t.dataset.filter,apply=()=>cards.forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.type!==f));
+  if(!canMorph())return apply();
+  cards.forEach((c,i)=>c.style.viewTransitionName='card-'+i);
+  document.startViewTransition(apply).finished.finally(()=>cards.forEach(c=>c.style.viewTransitionName=''));
+}));
 
 // "Enquire" buttons preselect the project in the site-visit form
-document.querySelectorAll('[data-project]').forEach(a=>a.addEventListener('click',()=>{
-  const s=document.getElementById('v-int');[...s.options].forEach(o=>{if(o.text===a.dataset.project)s.value=o.text})}));
+// "Book a Visit": the card (or button) morphs into the booking form, project already chosen
+const visitBox=document.querySelector('#enquire .wrap');
+document.querySelectorAll('[data-project]').forEach(a=>a.addEventListener('click',e=>{
+  const sel=document.getElementById('v-int');
+  const pick=()=>{[...sel.options].forEach(o=>{if(o.text===a.dataset.project)sel.value=o.text})};
+  if(!canMorph())return pick();
+  e.preventDefault();
+  const src=a.closest('.card')||a;
+  src.style.viewTransitionName='visit';
+  const vt=document.startViewTransition(()=>{
+    src.style.viewTransitionName='';
+    pick();
+    document.getElementById('enquire').scrollIntoView({behavior:'instant',block:'start'});
+    visitBox.style.viewTransitionName='visit';
+    history.replaceState(null,'','#enquire');
+  });
+  vt.finished.finally(()=>{visitBox.style.viewTransitionName='';document.getElementById('v-name').focus({preventScroll:true})});
+}));
 
 // Enquiries go to the sales team on WhatsApp (no backend needed)
 function sendEnquiry(e,src){
@@ -658,7 +702,10 @@ function sendEnquiry(e,src){
   btn.disabled=true;setTimeout(()=>btn.disabled=false,3000);
   const w=window.open(url,'_blank');
   if(note){
-    note.innerHTML=w?'WhatsApp is open with your message ready. Press send there and our advisor will reply. Nothing opened? <a href="'+url+'" target="_blank" rel="noopener">Open WhatsApp again</a> or call <a href="tel:+917200141515">+91 72001 41515</a>.'
+    const proj=f.interest&&f.interest.value!=='Not sure yet'?f.interest.value:'';
+    const lead=src==='visit'?(proj?'Your visit to '+proj+' is one step away. ':'Your site visit is one step away. '):'Your request is ready. ';
+    const next=src==='visit'?'Press send in WhatsApp and our advisor will call you to fix a time. ':'Press send in WhatsApp and our advisor will share matching projects. ';
+    note.innerHTML=w?lead+next+'Nothing opened? <a href="'+url+'" target="_blank" rel="noopener">Open WhatsApp again</a> or call <a href="tel:+917200141515">+91 72001 41515</a>.'
       :'Your browser stopped WhatsApp from opening, so your details are still here. <a href="'+url+'" target="_blank" rel="noopener">Open WhatsApp</a> or call <a href="tel:+917200141515">+91 72001 41515</a>.';
     note.hidden=false;
   }
