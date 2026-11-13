@@ -34,7 +34,6 @@ html{accent-color:var(--brand-ink);caret-color:var(--brand-ink)}
 .skip:focus{top:12px}
 p,li,dd{text-wrap:pretty}
 h1,h2,h3,blockquote{text-wrap:balance}
-.stat strong{font-variant-numeric:tabular-nums}
 [id]{scroll-margin-top:80px}
 body{font-family:"Archivo",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
@@ -109,12 +108,6 @@ section{padding:96px 0}
 .search .ico,.enquiry .btn .ico{width:18px;height:18px}
 
 /* STATS */
-.stats{padding:72px 0 0}
-.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stat{padding:30px 24px;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}
-.stat strong{display:block;font-size:clamp(1.5rem,2.3vw,2.125rem);font-weight:700;line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin-bottom:6px}
-.stat span{color:var(--text);font-size:var(--fs-small);line-height:1.5}
 
 /* PROJECTS */
 .tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:36px;overflow-x:auto}
@@ -265,10 +258,6 @@ footer a:hover{color:#fff}
   .search form{grid-template-columns:1fr 1fr}
   .search .f{border-bottom:1px solid var(--line)}
   .search .btn{grid-column:1/-1;padding:18px}
-  .stats .wrap{grid-template-columns:1fr 1fr}
-  .stat:nth-child(2){border-right:0}
-  .stat:nth-child(3){padding-left:0}
-  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .feature .wrap,.faq .wrap,.enquiry .wrap{grid-template-columns:1fr}
   .feature .wrap{gap:36px}
   .enquiry .photo{min-height:240px}
@@ -306,8 +295,6 @@ footer a:hover{color:#fff}
   .search form{grid-template-columns:1fr}
   .search .f{border-right:0}
   .grid,.aud,.why-grid,.steps,.row,.ticks,.foot{grid-template-columns:1fr}
-  .stat{padding:20px 16px}
-  .stat:nth-child(3){padding-left:16px}
   .wa{display:none}
   .mbar{display:grid;grid-template-columns:1fr 1fr 1.2fr;position:fixed;left:0;right:0;bottom:0;z-index:55;background:#fff;border-top:1px solid var(--line)}
   .mbar a{padding:16px 8px;text-align:center;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.9375rem}
@@ -328,6 +315,14 @@ footer a:hover{color:#fff}
 .hA-vision b{color:#f9a46d;text-transform:uppercase;letter-spacing:.08em;font-size:var(--fs-label);margin-right:8px}
 .hA-vision span{display:block;color:rgba(255,255,255,.6);margin-top:2px}
 @media (max-width:860px){.hA{min-height:0;padding:48px 0 32px}.hA-copy{margin-bottom:32px}}
+
+.pA{background:var(--soft);border-bottom:1px solid #e6e3dc}
+.pA .wrap{display:flex;justify-content:space-between;gap:24px;padding:26px 0}
+.pA-i{display:flex;flex-direction:column;gap:2px;flex:1}
+.pA-i strong{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pA-i span{font-size:var(--fs-small);color:var(--text);line-height:1.4}
+.pA-i+.pA-i{padding-left:24px;border-left:1px solid #dcd8cf}
+@media (max-width:1024px){.pA .wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}.pA-i{flex-direction:column;gap:2px}.pA-i+.pA-i{padding-left:0;border-left:0}.pA-i strong{white-space:normal}}
 </style>
 </head>
 <body>
@@ -389,12 +384,12 @@ footer a:hover{color:#fff}
 </section>
 
 <main id="main">
-<div class="stats">
+<div class="proof pA" role="list" aria-label="i5 at a glance">
   <div class="wrap">
-    <div class="stat"><strong>80+</strong><span>Projects delivered</span></div>
-    <div class="stat"><strong>15+ years</strong><span>In Chennai real estate, since 2010</span></div>
-    <div class="stat"><strong>Trailblazers 2026</strong><span>Times of India, Tamil Nadu</span></div>
-    <div class="stat"><strong>DTCP &amp; RERA</strong><span>Approved projects</span></div>
+    <div class="pA-i" role="listitem"><strong>80+</strong><span>Projects delivered</span></div>
+    <div class="pA-i" role="listitem"><strong>15+ years</strong><span>In Chennai real estate, since 2010</span></div>
+    <div class="pA-i" role="listitem"><strong>Trailblazers 2026</strong><span>Times of India, Tamil Nadu</span></div>
+    <div class="pA-i" role="listitem"><strong>DTCP &amp; RERA</strong><span>Approved projects</span></div>
   </div>
 </div>
 
