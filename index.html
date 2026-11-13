@@ -323,6 +323,31 @@ footer a:hover{color:#fff}
 .pA-i span{font-size:var(--fs-small);color:var(--text);line-height:1.4}
 .pA-i+.pA-i{padding-left:24px;border-left:1px solid #dcd8cf}
 @media (max-width:1024px){.pA .wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}.pA-i{flex-direction:column;gap:2px}.pA-i+.pA-i{padding-left:0;border-left:0}.pA-i strong{white-space:normal}}
+
+/* Photo-forward */
+@media (min-width:601px){
+.vC .grid{gap:20px}
+.vC .card{border:0;border-top:0;background:var(--dark);color:#fff;position:relative}
+.vC .card .img{aspect-ratio:4/5}
+.vC .card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,24,0) 25%,rgba(18,20,24,.6) 52%,rgba(18,20,24,.95) 100%)}
+.vC .card .illus{top:10px;bottom:auto;right:10px;z-index:2}
+.vC .card .status{z-index:2;color:var(--ink)}
+.vC .card .body{position:absolute;left:0;right:0;bottom:56px;padding:0 24px 18px;z-index:2;pointer-events:none}
+.vC .card .type{color:#fff;opacity:.9;display:inline-flex;align-items:center;gap:8px}
+.vC .card .type::before{content:"";width:18px;height:3px;background:var(--c-dot,var(--c))}
+.vC .card[data-type="plots"]{--c-dot:#7fc45a}.vC .card[data-type="villas"]{--c-dot:#f07aa6}.vC .card[data-type="apartments"]{--c-dot:#5cb8e6}.vC .card[data-type="farmland"]{--c-dot:#f2c84b}
+.vC .card h3{font-size:1.625rem;color:#fff}
+.vC .card .loc{color:rgba(255,255,255,.85)}
+.vC .card .loc .ico{color:rgba(255,255,255,.7)}
+.vC .card dl{border-top:1px solid rgba(255,255,255,.25);margin-top:14px}
+.vC .card dl div+div{border-left-color:rgba(255,255,255,.25)}
+.vC .card dt{color:rgba(255,255,255,.7)}
+.vC .card dd{color:#fff}
+.vC .card .actions{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.15);margin:0}
+.vC .card .actions a:first-child{border-right-color:rgba(255,255,255,.15);color:#fff}
+.vC .card .actions a:last-child{background:var(--brand-ink)}
+.vC .card .actions a:last-child:hover{background:var(--brand-ink-dark)}
+}
 </style>
 </head>
 <body>
@@ -408,7 +433,7 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<section id="projects">
+<section id="projects" class="vC">
   <div class="wrap">
     <div class="head">
       <div><h2>Find the right property for your family</h2></div>
