@@ -348,6 +348,14 @@ footer a:hover{color:#fff}
 .vC .card .actions a:last-child{background:var(--brand-ink)}
 .vC .card .actions a:last-child:hover{background:var(--brand-ink-dark)}
 }
+
+/* photo cards tilt toward the cursor (desktop, fine pointer only) */
+@media (hover:hover) and (pointer:fine) and (min-width:601px) and (prefers-reduced-motion:no-preference){
+.vC .card{--rx:0deg;--ry:0deg;--mx:50%;--my:30%;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out);will-change:auto}
+.vC .card.tilting{transition:transform .12s linear,box-shadow .3s var(--ease-out);box-shadow:0 28px 50px -28px rgba(18,20,24,.7)}
+.vC .card::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .4s var(--ease-out);background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.22),rgba(255,255,255,0) 60%);mix-blend-mode:soft-light}
+.vC .card.tilting::before{opacity:1}
+}
 </style>
 </head>
 <body>
@@ -704,6 +712,19 @@ function sendEnquiry(e,src){
   return false}
 
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Photo cards tilt gently toward the cursor (desktop only)
+(()=>{const mq=matchMedia('(hover:hover) and (pointer:fine) and (min-width:601px) and (prefers-reduced-motion:no-preference)');
+  const MAX=5;let raf=0;
+  document.querySelectorAll('#projects .card').forEach(card=>{
+    const move=e=>{if(!mq.matches)return;const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{card.classList.add('tilting');
+        card.style.setProperty('--ry',((x-.5)*2*MAX).toFixed(2)+'deg');card.style.setProperty('--rx',((.5-y)*2*MAX).toFixed(2)+'deg');
+        card.style.setProperty('--mx',(x*100).toFixed(1)+'%');card.style.setProperty('--my',(y*100).toFixed(1)+'%')})};
+    const reset=()=>{cancelAnimationFrame(raf);card.classList.remove('tilting');['--rx','--ry'].forEach(p=>card.style.setProperty(p,'0deg'))};
+    card.addEventListener('pointermove',move);card.addEventListener('pointerleave',reset);card.addEventListener('pointerdown',reset);
+  });
+})();
 </script>
 </body>
 </html>
