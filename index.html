@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>i5 Housing &amp; Properties | Plots, Villas, Apartments &amp; Farmland in Chennai</title>
-<meta name="description" content="DTCP and RERA approved plots, villas, apartments and farmlands in Chennai. 80+ projects delivered since 2010. Book a free site visit.">
+<title>Chennai Property Marketplace | Plots, Villas, Apartments &amp; Farmland | i5 Housing</title>
+<meta name="description" content="Browse plots, villas, apartments and farmland across Chennai. Filter by locality and approval, shortlist projects and book a free site visit with i5 Housing.">
 <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/favicon.png">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -40,7 +40,7 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 .wrap{width:min(1200px,100% - 32px);margin-inline:auto}
 h1,h2,h3{font-weight:700;line-height:1.15;letter-spacing:-.01em}
-.card .type,.card dt,.search label,.card .status,.illus,footer h4,.step b{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.illus,footer h4,.step b{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:4px;font:600 var(--fs-body)/1 "Archivo",Arial,sans-serif;border:1.5px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .btn-brand{background:var(--brand-ink);color:#fff}
 .btn-brand:hover{background:var(--brand-ink-dark)}
@@ -95,50 +95,9 @@ section{padding:96px 0}
 .hero .tagline{font-family:"Kalam",cursive;font-weight:700;line-height:1.2;font-size:1.6rem;color:var(--brand);margin-top:16px;display:block}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 
-/* SEARCH BAR */
-.search{position:relative;z-index:5;margin-top:-56px}
-.search form{background:#fff;border:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr) auto}
-.search .f{display:flex;flex-direction:column;border-right:1px solid var(--line)}
-.search label{display:block;color:var(--muted);padding:18px 24px 0;cursor:pointer}
-.search select,.search input{width:100%;border:0;font:500 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--ink);background:transparent;padding:6px 20px 18px 24px;min-height:44px;cursor:pointer}
-.search select{padding-left:20px}
-.search select:focus-visible,.search input:focus-visible{outline:none}
-.search .f:focus-within{box-shadow:inset 0 -3px 0 var(--brand-ink)}
-.search .btn{border-radius:0;height:100%;padding:0 32px}
-.search .ico,.enquiry .btn .ico{width:18px;height:18px}
-
-/* STATS */
-
 /* PROJECTS */
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:36px;overflow-x:auto}
-.tab{padding:14px 22px;border:0;background:none;font:500 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.tab{--c:var(--brand)}
-.tab[aria-pressed="true"],.tab:hover{color:var(--ink);border-color:var(--c)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.card{--c:var(--brand-ink);background:#fff;border:1px solid var(--line);border-top:3px solid var(--c);display:flex;flex-direction:column}
-.card[data-type="plots"]{--c:var(--c-plots)}.card[data-type="villas"]{--c:var(--c-villas)}.card[data-type="apartments"]{--c:var(--c-apartments)}.card[data-type="farmland"]{--c:var(--c-farmland)}
-.tab[data-filter="plots"]{--c:var(--c-plots)}.tab[data-filter="villas"]{--c:var(--c-villas)}.tab[data-filter="apartments"]{--c:var(--c-apartments)}.tab[data-filter="farmland"]{--c:var(--c-farmland)}
-.card.hide{display:none}
-.card .img{aspect-ratio:4/3;background:#d9d6d0;position:relative;overflow:hidden}
-.card .img img,.feature .photo img,.enquiry .photo img{width:100%;height:100%;object-fit:cover}
-.card .status{position:absolute;top:0;left:0;background:#fff;padding:8px 12px}
-.card .body{padding:22px 22px 0;flex:1}
-.card .type{color:var(--c)}
+.feature .photo img,.enquiry .photo img{width:100%;height:100%;object-fit:cover}
 .illus{position:absolute;right:8px;bottom:8px;background:rgba(29,33,39,.78);color:#fff;padding:4px 8px;pointer-events:none;white-space:nowrap}
-.card h3{font-size:1.375rem;line-height:1.2;letter-spacing:-.005em;margin:6px 0 4px}
-.card .loc{color:var(--text);font-size:var(--fs-small);display:flex;gap:6px;align-items:center}
-.card .loc .ico{width:16px;height:16px;color:var(--muted)}
-.card dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:18px;border-top:1px solid var(--line)}
-.card dl div{padding:12px 0}
-.card dl div+div{padding-left:16px;border-left:1px solid var(--line)}
-.card dt{color:var(--muted)}
-.card dd{font-weight:600;font-size:var(--fs-body);overflow-wrap:break-word}
-.card .actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:4px}
-.card .actions a{padding:15px;text-align:center;font-weight:600;font-size:var(--fs-body)}
-.card .actions a:first-child{border-right:1px solid var(--line)}
-.card .actions a:last-child{background:var(--ink);color:#fff}
-.card .actions a:hover:first-child{color:var(--brand-ink)}
-.card .actions a:last-child:hover{background:var(--brand-ink)}
 
 /* FEATURE */
 .feature{background:var(--soft)}
@@ -218,7 +177,6 @@ details p{color:var(--text);margin-top:-10px;padding-bottom:22px;max-width:65ch}
 .sent{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-left:1px solid var(--green);background:#f3f8f2;font-size:var(--fs-small);line-height:1.5;color:var(--ink)}
 .sent[hidden]{display:none}
 .sent a{color:var(--brand-ink);font-weight:600;text-decoration:underline;text-underline-offset:2px}
-.search .sent{margin:0;border-top:0}
 
 /* FOOTER */
 footer{background:var(--dark);color:#c4c8ce;padding:72px 0 28px;font-size:.9375rem;line-height:1.65;letter-spacing:.01em}
@@ -243,10 +201,6 @@ footer a:hover{color:#fff}
   .nav ul::-webkit-scrollbar{display:none}
   .nav ul a{white-space:nowrap}
   [id]{scroll-margin-top:120px}
-  .grid{grid-template-columns:repeat(2,1fr)}
-  .search form{grid-template-columns:repeat(3,1fr)}
-  .search .f:nth-child(3){border-right:0}
-  .search .btn{grid-column:1/-1;padding:18px}
   .aud{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr)}
 }
@@ -254,10 +208,6 @@ footer a:hover{color:#fff}
   section{padding:72px 0}
   .ref{padding:48px 0}
   .ref-first{padding-top:72px}
-  .search .f:nth-child(3){grid-column:1/-1}
-  .search form{grid-template-columns:1fr 1fr}
-  .search .f{border-bottom:1px solid var(--line)}
-  .search .btn{grid-column:1/-1;padding:18px}
   .feature .wrap,.faq .wrap,.enquiry .wrap{grid-template-columns:1fr}
   .feature .wrap{gap:36px}
   .enquiry .photo{min-height:240px}
@@ -275,87 +225,176 @@ footer a:hover{color:#fff}
   body{padding-bottom:58px}
   html{scroll-padding-bottom:70px}
   .row{gap:0}
-  .tabs{-webkit-mask-image:linear-gradient(to right,#000 80%,transparent);mask-image:linear-gradient(to right,#000 80%,transparent)}
-  .card{display:grid;grid-template-columns:40% 1fr}
-  .card .img{aspect-ratio:auto;min-height:150px}
-  .card .img img{position:absolute;inset:0}
-  .card .illus{right:5px;bottom:5px;font-size:.6875rem;letter-spacing:.02em;padding:3px 5px}
-  .card .body{padding:14px 14px 12px}
-  .card h3{font-size:1.125rem;margin:4px 0 2px}
-  .card dl{margin-top:10px}
-  .card dl div{padding:8px 0 0}
-  .card dl div+div{padding-left:10px}
-  .card dd{font-size:.9375rem}
-  .card>*{min-width:0}
   .aud h3,.why-grid h3,.step h3{font-size:1.125rem}
   .hero p.lead{font-size:1.0625rem}
-  .card .actions{grid-column:1/-1;margin-top:0}
-  .grid{gap:16px}
-  .search{margin-top:-40px}
-  .search form{grid-template-columns:1fr}
-  .search .f{border-right:0}
-  .grid,.aud,.why-grid,.steps,.row,.ticks,.foot{grid-template-columns:1fr}
+  .aud,.why-grid,.steps,.row,.ticks,.foot{grid-template-columns:1fr}
   .wa{display:none}
   .mbar{display:grid;grid-template-columns:1fr 1fr 1.2fr;position:fixed;left:0;right:0;bottom:0;z-index:55;background:#fff;border-top:1px solid var(--line)}
   .mbar a{padding:16px 8px;text-align:center;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.9375rem}
   .mbar a+a{border-left:1px solid var(--line)}
   .mbar a:last-child{background:var(--brand-ink);color:#fff}
 }
-@media (max-width:360px){.card .illus{white-space:normal;left:5px;text-align:center}}
 
-.hA{min-height:calc(100svh - 80px);display:flex;flex-direction:column;justify-content:flex-end;padding:72px 0 40px}
-.hA::after{background:linear-gradient(180deg,rgba(18,20,24,.35) 0%,rgba(18,20,24,.55) 45%,rgba(18,20,24,.88) 100%)}
-.hA .wrap{display:block}
-.hA-copy{margin-bottom:48px}
-.hA h1{font-size:clamp(2.6rem,6.2vw,5.2rem);max-width:15ch;line-height:1.02;letter-spacing:-.025em}
-.hA .lead{max-width:56ch}
-.hA-search{margin:0}
-.hA-search form{box-shadow:0 18px 40px -18px rgba(0,0,0,.55)}
-.hA-vision{margin-top:22px;color:rgba(255,255,255,.8);font-size:var(--fs-small);max-width:90ch}
-.hA-vision b{color:#f9a46d;text-transform:uppercase;letter-spacing:.08em;font-size:var(--fs-label);margin-right:8px}
-.hA-vision span{display:block;color:rgba(255,255,255,.6);margin-top:2px}
-@media (max-width:860px){.hA{min-height:0;padding:48px 0 32px}.hA-copy{margin-bottom:32px}}
 
-.pA{background:var(--soft);border-bottom:1px solid #e6e3dc}
-.pA .wrap{display:flex;justify-content:space-between;gap:24px;padding:26px 0}
-.pA-i{display:flex;flex-direction:column;gap:2px;flex:1}
-.pA-i strong{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
-.pA-i span{font-size:var(--fs-small);color:var(--text);line-height:1.4}
-.pA-i+.pA-i{padding-left:24px;border-left:1px solid #dcd8cf}
-@media (max-width:1024px){.pA .wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}.pA-i{flex-direction:column;gap:2px}.pA-i+.pA-i{padding-left:0;border-left:0}.pA-i strong{white-space:normal}}
 
-/* Photo-forward */
-@media (min-width:601px){
-.vC .grid{gap:20px}
-.vC .card{border:0;border-top:0;background:var(--dark);color:#fff;position:relative}
-.vC .card .img{aspect-ratio:4/5}
-.vC .card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,24,0) 25%,rgba(18,20,24,.6) 52%,rgba(18,20,24,.95) 100%)}
-.vC .card .illus{top:10px;bottom:auto;right:10px;z-index:2}
-.vC .card .status{z-index:2;color:var(--ink)}
-.vC .card .body{position:absolute;left:0;right:0;bottom:56px;padding:0 24px 18px;z-index:2;pointer-events:none}
-.vC .card .type{color:#fff;opacity:.9;display:inline-flex;align-items:center;gap:8px}
-.vC .card .type::before{content:"";width:18px;height:3px;background:var(--c-dot,var(--c))}
-.vC .card[data-type="plots"]{--c-dot:#7fc45a}.vC .card[data-type="villas"]{--c-dot:#f07aa6}.vC .card[data-type="apartments"]{--c-dot:#5cb8e6}.vC .card[data-type="farmland"]{--c-dot:#f2c84b}
-.vC .card h3{font-size:1.625rem;color:#fff}
-.vC .card .loc{color:rgba(255,255,255,.85)}
-.vC .card .loc .ico{color:rgba(255,255,255,.7)}
-.vC .card dl{border-top:1px solid rgba(255,255,255,.25);margin-top:14px}
-.vC .card dl div+div{border-left-color:rgba(255,255,255,.25)}
-.vC .card dt{color:rgba(255,255,255,.7)}
-.vC .card dd{color:#fff}
-.vC .card .actions{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.15);margin:0}
-.vC .card .actions a:first-child{border-right-color:rgba(255,255,255,.15);color:#fff}
-.vC .card .actions a:last-child{background:var(--brand-ink)}
-.vC .card .actions a:last-child:hover{background:var(--brand-ink-dark)}
+
+/* ================= MARKETPLACE ================= */
+:root{--panel:#fff;--chip:#f1efea}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-brand small{font-size:var(--fs-small);color:var(--muted);line-height:1.25;max-width:12ch;border-left:1px solid var(--line);padding-left:12px}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:#fff}
+.btn-ghost:hover{border-color:var(--ink)}
+.nav-cta .btn{padding:12px 18px}
+.short-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.9375rem;padding:12px 0;color:var(--ink)}
+.short-link .ico{width:18px;height:18px;color:var(--c-villas)}
+.short-link b{min-width:22px;height:22px;border-radius:11px;background:var(--chip);display:inline-grid;place-items:center;font-size:.8125rem}
+
+/* hero + search */
+.mk-hero{padding:56px 0 64px;text-align:left}
+.mk-hero::after{background:linear-gradient(180deg,rgba(18,20,24,.55),rgba(18,20,24,.78))}
+.mk-hero .wrap{display:block}
+.mk-hero h1{font-size:clamp(2.1rem,4.6vw,3.6rem);max-width:20ch;line-height:1.05;letter-spacing:-.02em;margin-bottom:14px}
+.mk-hero .lead{max-width:58ch;margin-bottom:28px}
+.finder{background:#fff;color:var(--ink);box-shadow:0 24px 48px -24px rgba(0,0,0,.6);max-width:980px}
+.finder-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.finder-tabs::-webkit-scrollbar{display:none}
+.ftab{border:0;background:none;padding:14px 20px;font:600 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.ftab[aria-pressed="true"]{color:var(--ink);border-color:var(--brand)}
+.ftab:hover{color:var(--ink)}
+.finder-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) auto}
+.finder-row .f{display:flex;flex-direction:column;border-right:1px solid var(--line);cursor:pointer}
+.finder-row label{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:16px 22px 0;cursor:pointer}
+.finder-row select,.finder-row input{border:0;background:transparent;font:500 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--ink);padding:6px 22px 16px;min-height:44px;width:100%}
+.finder-row select{padding-left:18px}
+.finder-row select:focus-visible,.finder-row input:focus-visible{outline:none}
+.finder-row .f:focus-within{box-shadow:inset 0 -3px 0 var(--brand-ink)}
+.finder-row .btn{border-radius:0;padding:0 34px;min-height:64px}
+.finder-row .btn .ico{width:18px;height:18px}
+.pop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px;font-size:var(--fs-small);color:rgba(255,255,255,.8)}
+.pop button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 14px;font:500 var(--fs-small) "Archivo",Arial,sans-serif;cursor:pointer;min-height:36px}
+.pop button:hover{background:rgba(255,255,255,.18)}
+
+/* trust line */
+.trust{background:var(--soft);border-bottom:1px solid #e6e3dc}
+.trust .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;padding:16px 0;font-size:var(--fs-small);color:var(--text)}
+.trust b{color:var(--ink)}
+.trust .ico{width:18px;height:18px;color:var(--green);vertical-align:-4px;margin-right:6px}
+
+/* results layout */
+.mk{padding:56px 0 96px}
+.mk-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.mk-top h2{font-size:var(--fs-h2)}
+.mk-count{color:var(--text);margin-top:6px}
+.mk-count b{color:var(--ink)}
+.mk-sort{display:flex;align-items:center;gap:10px;font-size:var(--fs-small);color:var(--text)}
+.mk-sort select{font:500 var(--fs-body) "Archivo",Arial,sans-serif;border:1px solid #cfd2d6;border-radius:4px;padding:10px 12px;background:#fff;min-height:44px;color:var(--ink)}
+.mk-grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:32px;align-items:start}
+
+/* filters */
+.flt{position:sticky;top:100px;border:1px solid var(--line);background:#fff}
+.flt>summary{display:none}
+.flt-in{padding:6px 22px 22px}
+.flt fieldset{border:0;border-bottom:1px solid var(--line);padding:16px 0}
+.flt legend{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:10px;float:left;width:100%}
+.flt label{display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer;font-size:.9375rem;clear:both}
+.flt label .n{margin-left:auto;color:var(--muted);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.flt input[type=checkbox],.flt input[type=radio]{width:18px;height:18px;flex:0 0 auto}
+.flt .sw{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c)}
+.flt-clear{margin-top:16px;width:100%;border:1px solid var(--line);background:#fff;padding:12px;font:600 .9375rem "Archivo",Arial,sans-serif;cursor:pointer;min-height:44px}
+.flt-clear:hover{border-color:var(--ink)}
+
+/* listing cards */
+.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.lst{--c:var(--brand-ink);background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;position:relative;transition:box-shadow .25s var(--ease-out),border-color .25s}
+.lst:hover{border-color:#d3d0c8;box-shadow:0 18px 36px -24px rgba(18,20,24,.35)}
+.lst[data-type="plots"]{--c:var(--c-plots)}.lst[data-type="villas"]{--c:var(--c-villas)}.lst[data-type="apartments"]{--c:var(--c-apartments)}.lst[data-type="farmland"]{--c:var(--c-farmland)}
+.lst[hidden]{display:none}
+.lst-img{aspect-ratio:16/10;background:#d9d6d0;position:relative;overflow:hidden}
+.lst-img img{width:100%;height:100%;object-fit:cover}
+.badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
+.bdg{font-size:var(--fs-label);font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;line-height:1.2;background:#fff;color:var(--ink);display:inline-flex;align-items:center;gap:5px}
+.bdg .ico{width:13px;height:13px;stroke-width:2.4}
+.bdg-ok{background:#eaf4e7;color:#2f6b22}
+.bdg-ok .ico{color:#2f6b22}
+.bdg-feat{background:var(--brand-ink);color:#fff}
+.bdg-sample{background:#fff4d6;color:#6b5000}
+.fav{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:transform .15s}
+.fav .ico{width:20px;height:20px}
+.fav[aria-pressed="true"]{color:var(--c-villas)}
+.fav[aria-pressed="true"] .ico{fill:currentColor}
+.fav:active{transform:scale(.9)}
+.lst-body{padding:18px 20px 4px;flex:1}
+.lst-type{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.lst h3{font-size:1.25rem;line-height:1.2;margin:4px 0 4px}
+.lst .loc{display:flex;gap:6px;align-items:center;color:var(--text);font-size:var(--fs-small)}
+.lst .loc .ico{width:16px;height:16px;color:var(--muted)}
+.lst dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.lst dt{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lst dd{font-weight:600;overflow-wrap:break-word}
+.lst-price{margin-top:12px;font-size:var(--fs-small);color:var(--text)}
+.lst-price b{color:var(--ink);font-size:var(--fs-body)}
+.lst-by{display:flex;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid var(--line);margin-top:14px}
+.av{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9375rem;color:#fff;background:var(--av,#6b727d);letter-spacing:-.01em}
+.av-i5{--av:var(--brand-ink)}
+.lst-by b{display:block;font-size:.9375rem;line-height:1.3}
+.lst-by div span{display:flex;align-items:center;gap:4px;font-size:var(--fs-small);color:var(--text)}
+.lst-by .ico{width:14px;height:14px;color:#2f6b22;stroke-width:2.4}
+.lst-act{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.lst-act a{padding:14px;text-align:center;font-weight:600;min-height:48px;display:flex;align-items:center;justify-content:center}
+.lst-act a:first-child{border-right:1px solid var(--line)}
+.lst-act a:first-child:hover{color:var(--brand-ink)}
+.lst-act a:last-child{background:var(--brand-ink);color:#fff}
+.lst-act a:last-child:hover{background:var(--brand-ink-dark)}
+.lst-act.is-sample{display:block;padding:14px 20px;font-size:var(--fs-small);color:var(--muted);text-align:center;background:#faf9f6}
+.empty{grid-column:1/-1;border:1px dashed #cfcbc2;padding:48px 24px;text-align:center;color:var(--text)}
+.empty b{display:block;color:var(--ink);font-size:var(--fs-item);margin-bottom:6px}
+.empty button{margin-top:14px}
+
+/* localities */
+.locg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.locg button{text-align:left;border:1px solid var(--line);background:#fff;padding:18px 20px;cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;gap:4px;min-height:44px;transition:border-color .2s}
+.locg button:hover{border-color:var(--ink)}
+.locg b{font-size:var(--fs-item)}
+.locg span{font-size:var(--fs-small);color:var(--text)}
+
+/* developers band */
+.devband{background:var(--dark);color:#fff;padding:56px 0}
+.devband .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.devband h2{font-size:var(--fs-h2);max-width:22ch}
+.devband p{color:#c4c8ce;margin-top:8px;max-width:56ch}
+
+@media (max-width:1024px){
+  .mk-grid{grid-template-columns:220px minmax(0,1fr);gap:24px}
+  .results{grid-template-columns:1fr}
+  .locg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav-brand small{display:none}
+  .nav-cta .btn-ghost{display:none}
 }
-
-/* photo cards tilt toward the cursor (desktop, fine pointer only) */
-@media (hover:hover) and (pointer:fine) and (min-width:601px) and (prefers-reduced-motion:no-preference){
-.vC .card{--rx:0deg;--ry:0deg;--mx:50%;--my:30%;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out);will-change:auto}
-.vC .card.tilting{transition:transform .12s linear,box-shadow .3s var(--ease-out);box-shadow:0 28px 50px -28px rgba(18,20,24,.7)}
-.vC .card::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .4s var(--ease-out);background:radial-gradient(420px circle at var(--mx) var(--my),rgba(255,255,255,.22),rgba(255,255,255,0) 60%);mix-blend-mode:soft-light}
-.vC .card.tilting::before{opacity:1}
+@media (max-width:860px){
+  .mk-grid{grid-template-columns:1fr}
+  .flt{position:static}
+  .flt>summary{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-weight:600;cursor:pointer;list-style:none;min-height:48px}
+  .flt>summary::-webkit-details-marker{display:none}
+  .flt>summary::after{content:"+";font-size:1.4rem;font-weight:400;color:var(--muted)}
+  .flt[open]>summary::after{content:"−"}
+  .flt[open]>summary{border-bottom:1px solid var(--line)}
+  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .finder-row{grid-template-columns:1fr 1fr}
+  .finder-row .f:nth-child(2){border-right:0}
+  .finder-row .f{border-bottom:1px solid var(--line)}
+  .finder-row .btn{grid-column:1/-1;min-height:56px}
 }
+@media (max-width:600px){
+  .mk-hero{padding:36px 0 44px}
+  .results{grid-template-columns:1fr}
+  .finder-row{grid-template-columns:1fr}
+  .finder-row .f{border-right:0}
+  .locg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .short-link{display:none}
+  .mk{padding:40px 0 64px}
+  .lst-img{aspect-ratio:16/9}
+}
+@media (max-width:420px){.locg{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -374,57 +413,241 @@ footer a:hover{color:#fff}
   <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M3 17v-5l2-5h14l2 5v5"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.6z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C1 8.6 3 5 6.6 5c2 0 3.5 1.1 4.4 2.6h2C13.9 6.1 15.4 5 17.4 5 21 5 23 8.6 21.6 11.8 19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.4 3.4 8.1 8 9 4.6-.9 8-4.6 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
 </svg>
 
 <header class="nav">
   <div class="wrap">
-    <a href="#top"><img src="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png" srcset="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png 180w, https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo.png 320w" sizes="84px" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/i5-logo-sm.png'" alt="i5 Housing &amp; Properties" width="180" height="112"></a>
+    <div class="nav-brand"><a href="#top"><img src="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png" srcset="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png 180w, https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo.png 320w" sizes="84px" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/i5-logo-sm.png'" alt="i5 Housing &amp; Properties" width="180" height="112"></a><small>Chennai property marketplace</small></div>
     <ul>
-      <li><a href="#buyers">Buyers</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#i5-palace">i5 Palace</a></li>
-      <li><a href="#why">Why i5</a></li>
+      <li><a href="#listings">Properties</a></li>
+      <li><a href="#localities">Localities</a></li>
+      <li><a href="#i5-palace">Featured</a></li>
+      <li><a href="#buyers">For buyers</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <div class="nav-cta"><a class="nav-tel" href="tel:+917200141515"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>+91 72001 41515</a><a class="btn btn-brand" href="#enquire">Book a Free Site Visit</a></div>
+    <div class="nav-cta"><a class="short-link" href="#listings" data-show-short><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg>Shortlist <b id="shortCount">0</b></a><a class="btn btn-ghost" href="#developers">List your project</a><a class="btn btn-brand" href="#enquire">Book a Free Site Visit</a></div>
   </div>
 </header>
 
-<section class="hero hA" id="top">
+<section class="hero mk-hero" id="top">
   <div class="hero-media" id="heroMedia" data-mp4="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/hero/hero-720.mp4" data-mp4-sm="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/hero/hero-480.mp4">
     <img src="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/hero/poster-1280.webp" srcset="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/hero/poster-768.webp 768w, https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/hero/poster-1280.webp 1280w" sizes="100vw" alt="" fetchpriority="high" decoding="async" width="1280" height="720" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/hero/poster-1280.jpg'">
   </div>
-  <div class="wrap hA-copy">
+  <div class="wrap">
     <div class="brandbar" aria-hidden="true"><i style="background:#e5528a"></i><i style="background:#f47b20"></i><i style="background:#f9c21a"></i><i style="background:#29a9e0"></i><i style="background:#6dbe45"></i></div>
-    <h1>Building trust in Chennai, one family at a time</h1>
-    <p class="lead">Since 2010, we have helped families own approved plots, villas and homes with clear titles and honest pricing. Led by founder Mr. Prasad P, with over 18 years in real estate.</p>
-    <span class="tagline">Think high, achieve high</span>
-    <div class="hero-actions"><a class="btn btn-brand" href="#projects">View Projects</a><a class="btn btn-outline" href="#enquire">Book a Free Site Visit</a></div>
-  </div>
-  <div class="wrap hA-foot">
-    <div class="search hA-search"><form onsubmit="return sendEnquiry(event,'search')">
-      <div class="f"><label for="s-type">Property type</label>
-        <select id="s-type" name="type"><option>Plots</option><option>Villas</option><option>Apartments</option><option>Farmland</option></select></div>
-      <div class="f"><label for="s-loc">Location</label>
-        <select id="s-loc" name="location"><option>Guduvanchery / Chengalpattu</option><option>Kelambakkam / OMR</option><option>Thiruporur</option><option>Thiruvannamalai</option><option>Any location</option></select></div>
-      <div class="f"><label for="s-phone">Mobile number</label>
-        <input id="s-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 98765 43210" required pattern="\+?[0-9][0-9 \-]{8,14}[0-9]" title="Enter a 10-digit mobile number, with country code if outside India"></div>
-      <button class="btn btn-brand" type="submit"><svg class="ico"><use href="#i-wa"/></svg>Get Options on WhatsApp</button>
+    <h1>Find plots, villas, apartments and farmland across Chennai</h1>
+    <p class="lead">Browse projects from i5 Housing and other developers, shortlist the ones you like and talk to the developer directly.</p>
+    <form class="finder" id="finder" role="search" aria-label="Search properties">
+      <div class="finder-tabs" role="group" aria-label="Property type">
+        <button type="button" class="ftab" aria-pressed="true" data-type="">All</button><button type="button" class="ftab" aria-pressed="false" data-type="plots">Plots</button><button type="button" class="ftab" aria-pressed="false" data-type="villas">Villas</button><button type="button" class="ftab" aria-pressed="false" data-type="apartments">Apartments</button><button type="button" class="ftab" aria-pressed="false" data-type="farmland">Farmland</button>
+      </div>
+      <div class="finder-row">
+        <div class="f"><label for="q-loc">Locality</label><select id="q-loc"><option value="">Anywhere in Chennai</option><option value="Chengalpattu">Chengalpattu</option><option value="Guduvanchery">Guduvanchery</option><option value="Kelambakkam">Kelambakkam</option><option value="Porur">Porur</option><option value="Tambaram">Tambaram</option><option value="Velachery">Velachery</option><option value="Thiruvannamalai">Thiruvannamalai</option><option value="Chennai">Chennai (area on request)</option><option value="Tamil Nadu">Tamil Nadu (area on request)</option></select></div>
+        <div class="f"><label for="q-text">Project or developer</label><input id="q-text" type="search" placeholder="e.g. i5 Palace" autocomplete="off"></div>
+        <button class="btn btn-brand" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>Search</button>
+      </div>
     </form>
-    <p class="sent" role="status" hidden></p></div>
-    <p class="hA-vision"><b>Our vision</b> To become one of the Top 10 real estate brands in Tamil Nadu by 2035, and in India by 2045. <span>Mr. Prasad P, Founder &amp; Managing Director</span></p>
+    <div class="pop"><span>Popular:</span><button type="button" data-loc="Chengalpattu">Chengalpattu</button><button type="button" data-loc="Guduvanchery">Guduvanchery</button><button type="button" data-loc="Kelambakkam">Kelambakkam</button><button type="button" data-loc="Porur">Porur</button><button type="button" data-loc="Velachery">Velachery</button></div>
   </div>
 </section>
 
 <main id="main">
-<div class="proof pA" role="list" aria-label="i5 at a glance">
+<div class="trust"><div class="wrap">
+  <span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Run by <b>i5 Housing &amp; Properties</b>, since 2010</span>
+  <span><b>80+</b> projects delivered</span>
+  <span><b>Trailblazers 2026</b>, Times of India, Tamil Nadu</span>
+  <span>i5 projects are <b>DTCP &amp; RERA</b> approved</span>
+</div></div>
+
+<section class="mk" id="listings">
   <div class="wrap">
-    <div class="pA-i" role="listitem"><strong>80+</strong><span>Projects delivered</span></div>
-    <div class="pA-i" role="listitem"><strong>15+ years</strong><span>In Chennai real estate, since 2010</span></div>
-    <div class="pA-i" role="listitem"><strong>Trailblazers 2026</strong><span>Times of India, Tamil Nadu</span></div>
-    <div class="pA-i" role="listitem"><strong>DTCP &amp; RERA</strong><span>Approved projects</span></div>
+    <div class="mk-top">
+      <div><h2>Properties in Chennai</h2><p class="mk-count" id="mkCount" aria-live="polite"><b>15</b> properties</p></div>
+      <label class="mk-sort" for="mkSort">Sort by <select id="mkSort"><option value="featured">Featured first</option><option value="az">Name A–Z</option><option value="type">Property type</option></select></label>
+    </div>
+    <div class="mk-grid">
+      <details class="flt" id="flt" open>
+        <summary>Filters <span id="fltN"></span></summary>
+        <form class="flt-in" id="fltForm">
+          <fieldset><legend>Property type</legend><label><input type="checkbox" name="type" value="plots"><span class="sw" style="--c:var(--c-plots)"></span>Plots<span class="n">6</span></label><label><input type="checkbox" name="type" value="villas"><span class="sw" style="--c:var(--c-villas)"></span>Villas<span class="n">2</span></label><label><input type="checkbox" name="type" value="apartments"><span class="sw" style="--c:var(--c-apartments)"></span>Apartments<span class="n">4</span></label><label><input type="checkbox" name="type" value="farmland"><span class="sw" style="--c:var(--c-farmland)"></span>Farmland<span class="n">3</span></label></fieldset>
+          <fieldset><legend>Locality</legend><label><input type="radio" name="loc" value="" checked>Anywhere<span class="n">15</span></label><label><input type="radio" name="loc" value="Chengalpattu">Chengalpattu<span class="n">1</span></label><label><input type="radio" name="loc" value="Guduvanchery">Guduvanchery<span class="n">1</span></label><label><input type="radio" name="loc" value="Kelambakkam">Kelambakkam<span class="n">1</span></label><label><input type="radio" name="loc" value="Porur">Porur<span class="n">1</span></label><label><input type="radio" name="loc" value="Tambaram">Tambaram<span class="n">1</span></label><label><input type="radio" name="loc" value="Velachery">Velachery<span class="n">1</span></label><label><input type="radio" name="loc" value="Thiruvannamalai">Thiruvannamalai<span class="n">1</span></label><label><input type="radio" name="loc" value="Chennai">Chennai (area on request)<span class="n">6</span></label><label><input type="radio" name="loc" value="Tamil Nadu">Tamil Nadu (area on request)<span class="n">2</span></label></fieldset>
+          <fieldset><legend>Approval</legend><label><input type="checkbox" name="appr" value="dtcp">DTCP approved</label><label><input type="checkbox" name="appr" value="rera">RERA approved</label></fieldset>
+          <fieldset><legend>Listed by</legend><label><input type="checkbox" name="by" value="i5">i5 Housing (verified)<span class="n">9</span></label><label><input type="checkbox" name="by" value="other">Other developers<span class="n">6</span></label></fieldset>
+          <fieldset><legend>Shortlist</legend><label><input type="checkbox" name="short" value="1">Shortlisted only</label></fieldset>
+          <button type="button" class="flt-clear" id="fltClear">Clear all filters</button>
+        </form>
+      </details>
+      <div class="results" id="results">
+      <article class="lst" data-type="plots" data-loc="Chengalpattu" data-appr="dtcp" data-by="i5" data-order="0" data-name="i5 palace i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-feat">Flagship</span><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>DTCP approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist i5 Palace"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>i5 Palace</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Nellikuppam, Chengalpattu</p>
+          <dl><div><dt>Area</dt><dd>92 acres</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about i5 Palace">Call</a><a href="#enquire" data-project="i5 Palace" aria-label="Book a site visit to i5 Palace">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="plots" data-loc="Chennai" data-appr="dtcp" data-by="i5" data-order="1" data-name="i5 aurowin enclave i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>DTCP approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist i5 Aurowin Enclave"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>i5 Aurowin Enclave</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about i5 Aurowin Enclave">Call</a><a href="#enquire" data-project="i5 Aurowin Enclave" aria-label="Book a site visit to i5 Aurowin Enclave">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="plots" data-loc="Chennai" data-appr="dtcp" data-by="i5" data-order="2" data-name="i5 wonder city i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>DTCP approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist i5 Wonder City"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>i5 Wonder City</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about i5 Wonder City">Call</a><a href="#enquire" data-project="i5 Wonder City" aria-label="Book a site visit to i5 Wonder City">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="plots" data-loc="Chennai" data-appr="dtcp" data-by="i5" data-order="3" data-name="i5 palace city i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>DTCP approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist i5 Palace City"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>i5 Palace City</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about i5 Palace City">Call</a><a href="#enquire" data-project="i5 Palace City" aria-label="Book a site visit to i5 Palace City">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="villas" data-loc="Chennai" data-appr="" data-by="i5" data-order="4" data-name="gokul avenue i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Gokul Avenue"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Villas</p><h3>Gokul Avenue</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Independent villas</dd></div><div><dt>Community</dt><dd>Gated</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about Gokul Avenue">Call</a><a href="#enquire" data-project="Gokul Avenue" aria-label="Book a site visit to Gokul Avenue">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="apartments" data-loc="Chennai" data-appr="rera" data-by="i5" data-order="5" data-name="i5 ava palace i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>RERA approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist i5 AVA Palace"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Apartments</p><h3>i5 AVA Palace</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Approval</dt><dd>RERA</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about i5 AVA Palace">Call</a><a href="#enquire" data-project="i5 AVA Palace" aria-label="Book a site visit to i5 AVA Palace">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="apartments" data-loc="Chennai" data-appr="rera" data-by="i5" data-order="6" data-name="spyka bliss i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>RERA approved</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Spyka Bliss"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Apartments</p><h3>Spyka Bliss</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Chennai</p>
+          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Approval</dt><dd>RERA</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about Spyka Bliss">Call</a><a href="#enquire" data-project="Spyka Bliss" aria-label="Book a site visit to Spyka Bliss">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="farmland" data-loc="Tamil Nadu" data-appr="" data-by="i5" data-order="7" data-name="kurumba i5 farms i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Kurumba i5 Farms"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Farmland</p><h3>Kurumba i5 Farms</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Tamil Nadu</p>
+          <dl><div><dt>Type</dt><dd>Managed farmland</dd></div><div><dt>Use</dt><dd>Weekend home</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about Kurumba i5 Farms">Call</a><a href="#enquire" data-project="Kurumba i5 Farms" aria-label="Book a site visit to Kurumba i5 Farms">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="farmland" data-loc="Tamil Nadu" data-appr="" data-by="i5" data-order="8" data-name="tamara farms i5 housing &amp; properties">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Tamara Farms"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Farmland</p><h3>Tamara Farms</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Tamil Nadu</p>
+          <dl><div><dt>Type</dt><dd>Managed farmland</dd></div><div><dt>Use</dt><dd>Weekend home</dd></div></dl><p class="lst-price"><b>Price on request</b> · call for current availability</p></div>
+        <div class="lst-by"><span class="av av-i5" aria-hidden="true">i5</span><div><b>i5 Housing &amp; Properties</b><span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · Since 2010</span></div></div>
+        <div class="lst-act"><a href="tel:+917200141515" aria-label="Call about Tamara Farms">Call</a><a href="#enquire" data-project="Tamara Farms" aria-label="Book a site visit to Tamara Farms">Book a Visit</a></div>
+      </article>
+      <article class="lst" data-type="apartments" data-loc="Porur" data-appr="" data-by="other" data-order="9" data-name="lorem residency lorem builders">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Lorem Residency"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Apartments</p><h3>Lorem Residency</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Porur</p>
+          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#4f6d8a" aria-hidden="true">LB</span><div><b>Lorem Builders</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+      <article class="lst" data-type="villas" data-loc="Tambaram" data-appr="" data-by="other" data-order="10" data-name="ipsum gardens ipsum developers">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Ipsum Gardens"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Villas</p><h3>Ipsum Gardens</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Tambaram</p>
+          <dl><div><dt>Type</dt><dd>Villas</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#7a5c8f" aria-hidden="true">ID</span><div><b>Ipsum Developers</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+      <article class="lst" data-type="plots" data-loc="Kelambakkam" data-appr="" data-by="other" data-order="11" data-name="dolor enclave dolor constructions">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Dolor Enclave"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>Dolor Enclave</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Kelambakkam</p>
+          <dl><div><dt>Type</dt><dd>Plots</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#5d7a4a" aria-hidden="true">DC</span><div><b>Dolor Constructions</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+      <article class="lst" data-type="apartments" data-loc="Velachery" data-appr="" data-by="other" data-order="12" data-name="sit amet towers lorem builders">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Sit Amet Towers"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Apartments</p><h3>Sit Amet Towers</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Velachery</p>
+          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#4f6d8a" aria-hidden="true">LB</span><div><b>Lorem Builders</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+      <article class="lst" data-type="farmland" data-loc="Thiruvannamalai" data-appr="" data-by="other" data-order="13" data-name="consectetur farms amet estates">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Consectetur Farms"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Farmland</p><h3>Consectetur Farms</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Thiruvannamalai</p>
+          <dl><div><dt>Type</dt><dd>Farmland</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#8a6a3a" aria-hidden="true">AE</span><div><b>Amet Estates</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+      <article class="lst" data-type="plots" data-loc="Guduvanchery" data-appr="" data-by="other" data-order="14" data-name="adipiscing meadows ipsum developers">
+        <div class="lst-img"><img data-src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=400" data-srcset="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=420&q=55&h=262 420w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=400 640w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=960&q=55&h=600 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400"><span class="illus">Illustrative image</span>
+          <div class="badges"><span class="bdg bdg-sample">Sample listing</span></div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist Adipiscing Meadows"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><p class="lst-type">Plots</p><h3>Adipiscing Meadows</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Guduvanchery</p>
+          <dl><div><dt>Type</dt><dd>Plots</dd></div><div><dt>Status</dt><dd>Sample</dd></div></dl><p class="lst-price"><b>Price on request</b></p></div>
+        <div class="lst-by"><span class="av" style="--av:#7a5c8f" aria-hidden="true">ID</span><div><b>Ipsum Developers</b><span>Sample developer</span></div></div>
+        <div class="lst-act is-sample">Sample listing · not available to book</div>
+      </article>
+        <div class="empty" id="empty" hidden><b>No properties match these filters</b>Try another locality or property type.<br><button type="button" class="btn btn-ghost" id="emptyClear">Clear filters</button></div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<section class="feature" id="i5-palace">
+  <div class="wrap">
+    <div class="photo"><img data-src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=720&q=55" data-srcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=480&q=55 480w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=720&q=55 720w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1080&q=55 1080w" sizes="(max-width:860px) calc(100vw - 32px), 600px" alt="Illustrative photo of open land" loading="lazy" decoding="async" width="1000" height="800"><span class="illus">Illustrative image</span></div>
+    <div>
+      <h2>Featured: i5 Palace, a 92&#8209;acre township near Guduvanchery</h2>
+      <p>Located at Nellikuppam - Keezhur, i5 Palace offers DTCP approved plots in a planned, gated community close to GST Road and Guduvanchery, one of Chennai's fastest-growing suburbs.</p>
+      <ul class="ticks">
+        <li><svg class="ico"><use href="#i-check"/></svg>Wide internal roads</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Parks and open spaces</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Near GST Road</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Bank loan assistance</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-brand" href="#enquire" data-project="i5 Palace">Book a Free Site Visit</a>
+        <a class="btn btn-outline" href="tel:+917200141515">Call for Price</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ref ref-first" id="localities">
+  <div class="wrap">
+    <div class="head"><div><h2>Explore by locality</h2></div><p>Pick an area to see every listing there.</p></div>
+    <div class="locg"><button type="button" data-loc="Chengalpattu"><b>Chengalpattu</b><span>1 property</span></button><button type="button" data-loc="Guduvanchery"><b>Guduvanchery</b><span>1 property</span></button><button type="button" data-loc="Kelambakkam"><b>Kelambakkam</b><span>1 property</span></button><button type="button" data-loc="Porur"><b>Porur</b><span>1 property</span></button><button type="button" data-loc="Tambaram"><b>Tambaram</b><span>1 property</span></button><button type="button" data-loc="Velachery"><b>Velachery</b><span>1 property</span></button><button type="button" data-loc="Thiruvannamalai"><b>Thiruvannamalai</b><span>1 property</span></button><button type="button" data-loc="Chennai"><b>Chennai (area on request)</b><span>6 properties</span></button><button type="button" data-loc="Tamil Nadu"><b>Tamil Nadu (area on request)</b><span>2 properties</span></button></div>
+  </div>
+</section>
 
 <section id="buyers">
   <div class="wrap">
@@ -441,99 +664,6 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<section id="projects" class="vC">
-  <div class="wrap">
-    <div class="head">
-      <div><h2>Find the right property for your family</h2></div>
-      <p>Contact us for current availability, plot sizes and pricing on any project.</p>
-    </div>
-    <div class="tabs" role="group" aria-label="Filter projects by type">
-      <button class="tab" type="button" aria-pressed="true" data-filter="all">All Projects</button>
-      <button class="tab" type="button" aria-pressed="false" data-filter="plots">Plots</button>
-      <button class="tab" type="button" aria-pressed="false" data-filter="villas">Villas</button>
-      <button class="tab" type="button" aria-pressed="false" data-filter="apartments">Apartments</button>
-      <button class="tab" type="button" aria-pressed="false" data-filter="farmland">Farmland</button>
-    </div>
-    <div class="grid">
-      <article class="card" data-type="plots">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="status">Flagship</span><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Plots</span><h3>i5 Palace</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Nellikuppam, Chengalpattu</div>
-          <dl><div><dt>Area</dt><dd>92 acres</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about i5 Palace">Call</a><a href="#enquire" data-project="i5 Palace" aria-label="Book a site visit to i5 Palace">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="plots">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1628624747186-a941c476b7ef?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Plots</span><h3>i5 Aurowin Enclave</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about i5 Aurowin Enclave">Call</a><a href="#enquire" data-project="i5 Aurowin Enclave" aria-label="Book a site visit to i5 Aurowin Enclave">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="plots">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1592595896551-12b371d546d5?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Plots</span><h3>i5 Wonder City</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about i5 Wonder City">Call</a><a href="#enquire" data-project="i5 Wonder City" aria-label="Book a site visit to i5 Wonder City">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="villas">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Villas</span><h3>Gokul Avenue</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Independent villas</dd></div><div><dt>Community</dt><dd>Gated</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about Gokul Avenue">Call</a><a href="#enquire" data-project="Gokul Avenue" aria-label="Book a site visit to Gokul Avenue">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="apartments">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Apartments</span><h3>i5 AVA Palace</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Approval</dt><dd>RERA</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about i5 AVA Palace">Call</a><a href="#enquire" data-project="i5 AVA Palace" aria-label="Book a site visit to i5 AVA Palace">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="apartments">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Apartments</span><h3>Spyka Bliss</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Apartments</dd></div><div><dt>Approval</dt><dd>RERA</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about Spyka Bliss">Call</a><a href="#enquire" data-project="Spyka Bliss" aria-label="Book a site visit to Spyka Bliss">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="farmland">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Farmland</span><h3>Kurumba i5 Farms</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Tamil Nadu</div>
-          <dl><div><dt>Type</dt><dd>Managed farmland</dd></div><div><dt>Use</dt><dd>Weekend home</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about Kurumba i5 Farms">Call</a><a href="#enquire" data-project="Kurumba i5 Farms" aria-label="Book a site visit to Kurumba i5 Farms">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="farmland">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Farmland</span><h3>Tamara Farms</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Tamil Nadu</div>
-          <dl><div><dt>Type</dt><dd>Managed farmland</dd></div><div><dt>Use</dt><dd>Weekend home</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about Tamara Farms">Call</a><a href="#enquire" data-project="Tamara Farms" aria-label="Book a site visit to Tamara Farms">Book a Visit</a></div>
-      </article>
-      <article class="card" data-type="plots">
-        <div class="img"><img data-src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=480" data-srcset="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=400&q=55&h=300 400w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=640&q=55&h=480 640w, https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=960&q=55&h=720 960w" sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 50vw, 380px" alt="" loading="lazy" decoding="async" width="640" height="480"><span class="illus">Illustrative image</span></div>
-        <div class="body"><span class="type">Plots</span><h3>i5 Palace City</h3><div class="loc"><svg class="ico"><use href="#i-pin"/></svg>Chennai</div>
-          <dl><div><dt>Type</dt><dd>Residential plots</dd></div><div><dt>Approval</dt><dd>DTCP</dd></div></dl></div>
-        <div class="actions"><a href="tel:+917200141515" aria-label="Call about i5 Palace City">Call</a><a href="#enquire" data-project="i5 Palace City" aria-label="Book a site visit to i5 Palace City">Book a Visit</a></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="feature" id="i5-palace">
-  <div class="wrap">
-    <div class="photo"><img data-src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=720&q=55" data-srcset="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=480&q=55 480w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=720&q=55 720w, https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1080&q=55 1080w" sizes="(max-width:860px) calc(100vw - 32px), 600px" alt="Illustrative photo of open land" loading="lazy" decoding="async" width="1000" height="800"><span class="illus">Illustrative image</span></div>
-    <div>
-      <h2>i5 Palace, a 92&#8209;acre township near Guduvanchery</h2>
-      <p>Located at Nellikuppam - Keezhur, i5 Palace offers DTCP approved plots in a planned, gated community close to GST Road and Guduvanchery, one of Chennai's fastest-growing suburbs.</p>
-      <ul class="ticks">
-        <li><svg class="ico"><use href="#i-check"/></svg>Wide internal roads</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Parks and open spaces</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Near GST Road</li>
-        <li><svg class="ico"><use href="#i-check"/></svg>Bank loan assistance</li>
-      </ul>
-      <div class="hero-actions">
-        <a class="btn btn-brand" href="#enquire" data-project="i5 Palace">Book a Free Site Visit</a>
-        <a class="btn btn-outline" href="tel:+917200141515">Call for Price</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <section class="why" id="why">
   <div class="wrap">
     <div class="head">
@@ -548,18 +678,10 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-
-<section class="ref ref-first">
+<section class="devband" id="developers">
   <div class="wrap">
-    <div class="head"><div><h2>Where we build</h2></div></div>
-    <div class="locs">
-      <div><h3>Guduvanchery</h3><span>GST Road, suburban rail</span></div>
-      <div><h3>Chengalpattu</h3><span>Home of i5 Palace</span></div>
-      <div><h3>Kelambakkam</h3><span>Near OMR IT corridor</span></div>
-      <div><h3>Thiruporur</h3><span>Off OMR</span></div>
-      <div><h3>Thiruvannamalai</h3><span>Farmland and second homes</span></div>
-      <div><h3>Valasaravakkam</h3><span>Head office</span></div>
-    </div>
+    <div><h2>Are you a developer? List your project here</h2><p>Reach Chennai buyers looking for approved plots, villas and homes. Send us your project details on WhatsApp and our team will get in touch.</p></div>
+    <a class="btn btn-brand" href="https://wa.me/917200141515?text=Hi%20i5%20Housing%2C%20I%27m%20a%20developer%20and%20would%20like%20to%20list%20my%20project." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>List your project</a>
   </div>
 </section>
 
@@ -613,7 +735,7 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="foot">
       <div><div class="logo"><img src="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png" srcset="https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo-sm.png 180w, https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets/i5-logo.png 320w" sizes="80px" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/i5-logo-sm.png'" alt="i5 Housing &amp; Properties" width="180" height="112" loading="lazy"></div><p>Chennai real estate developer since 2010, offering DTCP and RERA approved plots, villas, apartments and farmlands.</p></div>
-      <div><h4>Company</h4><ul><li><a href="#why">Why i5</a></li><li><a href="#i5-palace">i5 Palace</a></li><li><a href="#faq">FAQ</a></li><li><a href="#enquire">Site Visit</a></li></ul></div>
+      <div><h4>Marketplace</h4><ul><li><a href="#listings">All properties</a></li><li><a href="#localities">Localities</a></li><li><a href="#developers">List your project</a></li><li><a href="#enquire">Site Visit</a></li></ul></div>
       <div><h4>Contact</h4><ul>
         <li><a href="tel:+917200141515">+91 72001 41515</a></li>
         <li>Valasaravakkam, Chennai, Tamil Nadu</li>
@@ -662,14 +784,6 @@ if('IntersectionObserver' in window){
 // Project filter
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const canMorph=()=>!!document.startViewTransition&&!reduceMotion.matches;
-const cards=[...document.querySelectorAll('.card')];
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-pressed',x===t?'true':'false'));
-  const f=t.dataset.filter,apply=()=>cards.forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.type!==f));
-  if(!canMorph())return apply();
-  cards.forEach((c,i)=>c.style.viewTransitionName='card-'+i);
-  document.startViewTransition(apply).finished.finally(()=>cards.forEach(c=>c.style.viewTransitionName=''));
-}));
 
 // "Enquire" buttons preselect the project in the site-visit form
 // "Book a Visit": the card (or button) morphs into the booking form, project already chosen
@@ -679,7 +793,7 @@ document.querySelectorAll('[data-project]').forEach(a=>a.addEventListener('click
   const pick=()=>{[...sel.options].forEach(o=>{if(o.text===a.dataset.project)sel.value=o.text})};
   if(!canMorph())return pick();
   e.preventDefault();
-  const src=a.closest('.card')||a;
+  const src=a.closest('.lst')||a;
   src.style.viewTransitionName='visit';
   const vt=document.startViewTransition(()=>{
     src.style.viewTransitionName='';
@@ -713,17 +827,57 @@ function sendEnquiry(e,src){
 
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-// Photo cards tilt gently toward the cursor (desktop only)
-(()=>{const mq=matchMedia('(hover:hover) and (pointer:fine) and (min-width:601px) and (prefers-reduced-motion:no-preference)');
-  const MAX=5;let raf=0;
-  document.querySelectorAll('#projects .card').forEach(card=>{
-    const move=e=>{if(!mq.matches)return;const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-      cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{card.classList.add('tilting');
-        card.style.setProperty('--ry',((x-.5)*2*MAX).toFixed(2)+'deg');card.style.setProperty('--rx',((.5-y)*2*MAX).toFixed(2)+'deg');
-        card.style.setProperty('--mx',(x*100).toFixed(1)+'%');card.style.setProperty('--my',(y*100).toFixed(1)+'%')})};
-    const reset=()=>{cancelAnimationFrame(raf);card.classList.remove('tilting');['--rx','--ry'].forEach(p=>card.style.setProperty(p,'0deg'))};
-    card.addEventListener('pointermove',move);card.addEventListener('pointerleave',reset);card.addEventListener('pointerdown',reset);
-  });
+
+// ---------- Marketplace: search, filters, sort, shortlist ----------
+(()=>{
+  const res=document.getElementById('results');if(!res)return;
+  const cards=[...res.querySelectorAll('.lst')],empty=document.getElementById('empty');
+  const form=document.getElementById('fltForm'),count=document.getElementById('mkCount'),fltN=document.getElementById('fltN');
+  const sortSel=document.getElementById('mkSort'),finder=document.getElementById('finder'),qLoc=document.getElementById('q-loc'),qText=document.getElementById('q-text');
+  const flt=document.getElementById('flt'),wide=matchMedia('(min-width:861px)');
+  const KEY='i5-shortlist';let short=new Set();
+  try{short=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...short]))}catch(e){}};
+  const idOf=c=>c.querySelector('h3').textContent;
+  const sc=document.getElementById('shortCount');
+  const paintShort=()=>{cards.forEach(c=>c.querySelector('.fav').setAttribute('aria-pressed',short.has(idOf(c))?'true':'false'));if(sc)sc.textContent=short.size};
+  let text='';
+  const state=()=>{const fd=new FormData(form);return{types:fd.getAll('type'),loc:fd.get('loc')||'',appr:fd.getAll('appr'),by:fd.getAll('by'),short:fd.get('short')==='1'}};
+  const apply=(animate)=>{
+    const s=state();
+    const run=()=>{
+      let n=0;
+      cards.forEach(c=>{const d=c.dataset;
+        const ok=(!s.types.length||s.types.includes(d.type))&&(!s.loc||d.loc===s.loc)&&(!s.appr.length||s.appr.includes(d.appr))&&(!s.by.length||s.by.includes(d.by))&&(!s.short||short.has(idOf(c)))&&(!text||d.name.includes(text));
+        c.hidden=!ok;if(ok)n++});
+      const by=sortSel.value;
+      const key=c=>by==='az'?c.querySelector('h3').textContent.toLowerCase():by==='type'?c.dataset.type+String(c.dataset.order).padStart(3,'0'):String(c.dataset.order).padStart(3,'0');
+      cards.slice().sort((a,b)=>key(a)<key(b)?-1:key(a)>key(b)?1:0).forEach(c=>res.insertBefore(c,empty));
+      empty.hidden=n>0;
+      count.innerHTML='<b>'+n+'</b> '+(n===1?'property':'properties')+(s.loc?' in '+s.loc:'');
+      const active=s.types.length+(s.loc?1:0)+s.appr.length+s.by.length+(s.short?1:0)+(text?1:0);
+      fltN.textContent=active?'('+active+' active)':'';
+      // keep the hero finder in step
+      document.querySelectorAll('.ftab').forEach(t=>t.setAttribute('aria-pressed',(s.types.length===1?t.dataset.type===s.types[0]:t.dataset.type==='')?'true':'false'));
+      qLoc.value=s.loc;
+    };
+    if(animate&&typeof canMorph==='function'&&canMorph()){cards.forEach((c,i)=>c.style.viewTransitionName='lst-'+i);document.startViewTransition(run).finished.finally(()=>cards.forEach(c=>c.style.viewTransitionName=''))}else run();
+  };
+  const setLoc=v=>{const r=form.querySelector('input[name=loc][value="'+v+'"]');if(r)r.checked=true};
+  const setType=v=>form.querySelectorAll('input[name=type]').forEach(i=>i.checked=!!v&&i.value===v);
+  const goResults=()=>document.getElementById('listings').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  form.addEventListener('change',()=>apply(true));
+  sortSel.addEventListener('change',()=>apply(true));
+  const clear=()=>{form.reset();text='';qText.value='';apply(true)};
+  document.getElementById('fltClear').addEventListener('click',clear);
+  document.getElementById('emptyClear').addEventListener('click',clear);
+  document.querySelectorAll('.ftab').forEach(t=>t.addEventListener('click',()=>{setType(t.dataset.type);apply(false)}));
+  finder.addEventListener('submit',e=>{e.preventDefault();setLoc(qLoc.value);text=qText.value.trim().toLowerCase();apply(false);goResults()});
+  document.querySelectorAll('.pop button,.locg button').forEach(b=>b.addEventListener('click',()=>{setLoc(b.dataset.loc);apply(false);goResults()}));
+  document.querySelectorAll('[data-show-short]').forEach(a=>a.addEventListener('click',()=>{form.querySelector('input[name=short]').checked=short.size>0;apply(false)}));
+  res.addEventListener('click',e=>{const f=e.target.closest('.fav');if(!f)return;const id=idOf(f.closest('.lst'));short.has(id)?short.delete(id):short.add(id);save();paintShort();if(state().short)apply(true)});
+  const syncFlt=()=>{flt.open=wide.matches};syncFlt();wide.addEventListener('change',syncFlt);
+  paintShort();apply(false);
 })();
 </script>
 </body>

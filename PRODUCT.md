@@ -21,6 +21,8 @@ Their shared job: find an approved property they can trust, check the title and 
 
 The marketing website for i5 Housing & Properties, a Chennai real estate developer founded in 2010. It presents the company's projects (plots, villas, apartments and farmland) and turns visitors into enquiries: a booked free site visit, a callback request, a phone call or a WhatsApp chat.
 
+Since November 2026 the page is laid out as a **Chennai property marketplace**: a search panel, filters (type, locality, approval, listed by, shortlist), listing cards with a "Listed by" advisor badge, locality browsing and a "List your project" route for other developers. It is run by i5 Housing; i5's nine projects are the only real, bookable listings.
+
 Success means a qualified enquiry: a buyer who shares their need (property type, location, budget) and reaches an advisor.
 
 ## Positioning
@@ -65,6 +67,11 @@ Assets:
 
 - Real: Tamil Nadu aerial hero video loop and posters (`assets/hero/`).
 - Stock: the founder portrait and all project photos are Unsplash images. The user has approved stock imagery for now. Do not present stock images as real project sites or as the founder.
+
+Placeholder content, by the user's request:
+
+- Six **sample listings** from fictional developers (Lorem Builders, Ipsum Developers, Dolor Constructions, Amet Estates) with lorem ipsum project names. Each is badged "Sample listing", has no booking action and shows "Price on request". Replace them with real third-party listings, or remove them, before promoting the marketplace to buyers.
+- Advisor avatars are **initials badges**, not photos. Use real advisor or developer photos only when supplied.
 
 Absent, and must not be invented: customer testimonials, reviews, prices, plot sizes, availability counts, RERA registration numbers, or press beyond the one award.
 
