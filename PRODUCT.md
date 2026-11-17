@@ -8,76 +8,69 @@ web
 
 ## Users
 
-Property buyers in and around Chennai, served equally across four groups. No single group takes priority:
+People looking to buy a residential plot in or around Chennai: first-time buyers, families buying land to build on later, NRIs buying remotely, and investors comparing growth corridors.
 
-- **First-time buyers:** families buying their first approved plot on EMI, so they can own land now and build later.
-- **IT professionals:** buyers looking at villas and apartments near OMR and Kelambakkam, close to work, schools and hospitals.
-- **NRI buyers:** Tamil families abroad who buy remotely through video site tours, documents shared online and power of attorney.
-- **Investors:** buyers of plots in growth corridors and managed farmland, held for long-term appreciation.
+Their job: find plot layouts in the corridor they want, see the approval status up front, shortlist a few, and reach the developer to arrange a site visit.
 
-Their shared job: find an approved property they can trust, check the title and approvals, and get to a site visit or a call with an advisor.
+A second audience is plot developers who want their layouts listed.
 
 ## Product Purpose
 
-The marketing website for i5 Housing & Properties, a Chennai real estate developer founded in 2010. It presents the company's projects (plots, villas, apartments and farmland) and turns visitors into enquiries: a booked free site visit, a callback request, a phone call or a WhatsApp chat.
+**Chennai Plots** is a plots-only property marketplace for Chennai. It lists residential plot layouts from developers so buyers can compare them by corridor, locality and approval, shortlist them and enquire. It is a new identity (November 2026); it replaces the earlier i5 Housing & Properties company site that lived in this repository.
 
-Since November 2026 the page is laid out as a **Chennai property marketplace**: a search panel, filters (type, locality, approval, listed by, shortlist), listing cards with a "Listed by" advisor badge, locality browsing and a "List your project" route for other developers. It is run by i5 Housing; i5's nine projects are the only real, bookable listings.
-
-Success means a qualified enquiry: a buyer who shares their need (property type, location, budget) and reaches an advisor.
+Success means a buyer finds a relevant layout and sends an enquiry, or a developer asks to list a layout.
 
 ## Positioning
 
-A developer with a 16-year track record that sells on trust and paperwork, not on hype: DTCP and RERA approved projects, legally verified titles, documents shared before booking, honest pricing, and support from first enquiry through bank loan to registration. Led by its founder, who has 18+ years in real estate. Its flagship is i5 Palace, its own 92-acre gated township near Guduvanchery.
+Plots only: no flats, villas or farmland. Approval status is shown on every listing, and buyers deal with the developer directly. Chennai Plots is a listing marketplace, not a seller.
 
 ## Operating Context
 
-- Buyer journey: enquiry, then free site visit with pick-up and drop on weekdays and weekends, then document review and booking, then bank loan help and registration.
-- Prices and availability are not published. Buyers call or enquire for current plot sizes, availability and pricing.
-- All enquiry forms (the hero property search and the site-visit form) open a pre-filled WhatsApp message to +91 72001 41515. There is no backend.
-- Head office: Valasaravakkam, Chennai.
-- Locations: Guduvanchery and Chengalpattu (GST Road, suburban rail, i5 Palace), Kelambakkam and Thiruporur (OMR IT corridor), Thiruvannamalai (farmland and second homes).
-- Buyers check approval type (DTCP or RERA), title documents (sale deed, approval copies, encumbrance certificate, patta) and whether banks will lend on the layout.
+- Buyers browse by corridor (GST Road, OMR, West Chennai, Oragadam) and locality, then filter by approval and by verified developers.
+- Prices are not published. Every listing shows "Price on request".
+- Shortlists are stored in the visitor's browser (localStorage); there are no accounts.
+- Enquiries are designed to open a pre-filled WhatsApp message. **The contact number is a placeholder (+91 00000 00000)**, so enquiry forms currently show a notice and send nothing. Set `PHONE` and `WHATSAPP` in `scripts/build_site.py` and rebuild to switch them on.
+- Buyers check DTCP or CMDA approval, RERA registration, and title documents (sale deed, approval copy and layout plan, encumbrance certificate, patta, parent documents).
 
 ## Capabilities and Constraints
 
-- Single static `index.html` with inline CSS and JS. Assets (logo, favicon, subset Archivo font, hero video and posters) are served from this repo through the jsDelivr CDN, pinned to a commit hash. Changing an asset means committing it and updating the pinned URL.
-- Current projects: i5 Palace (flagship, Nellikuppam - Keezhur, Chengalpattu, 92 acres, DTCP), i5 Aurowin Enclave, i5 Wonder City and i5 Palace City (DTCP plots), Gokul Avenue (gated villas), i5 AVA Palace and Spyka Bliss (RERA apartments), Kurumba i5 Farms and Tamara Farms (managed farmland).
-- Terminology: "DTCP" and "RERA" approvals, "plots", "villas", "apartments", "farmland", "site visit", "registration", "patta", "encumbrance certificate", "power of attorney".
-- Undecided: whether a Tamil-language version is needed.
+- The site is generated: `python3 scripts/build_site.py` writes `index.html` and one page per real listing into `projects/`. Edit the script, not the generated files.
+- Static HTML with inline CSS and JS. The Archivo font and the hero video are served from this repo through the jsDelivr CDN, pinned to a commit hash.
+- Real listings (bookable, each with a detail page): four plot layouts from i5 Housing & Properties, shown as one verified developer: i5 Palace (Nellikuppam - Keezhur, Chengalpattu, 92 acres, DTCP, gated, GST Road corridor), i5 Aurowin Enclave, i5 Wonder City, i5 Palace City (DTCP residential plots, Chennai, exact area on request).
+- Terminology: "plot layout", "corridor", "locality", "DTCP", "CMDA", "RERA", "patta", "encumbrance certificate", "verified developer", "sample listing".
+- "Verified developer" means the developer has confirmed its listing details with Chennai Plots. Only i5 Housing & Properties holds it today.
+- Undecided: the real contact number, who operates Chennai Plots as a business, whether listing is free for developers, and whether a Tamil version is needed.
 
 ## Brand Commitments
 
-- Name: i5 Housing & Properties. Logo files: `assets/i5-logo.png`, `assets/i5-logo-sm.png`, `assets/favicon.png`.
-- Tagline: "Think high, achieve high".
-- Headline promise: "Building trust in Chennai, one family at a time".
-- Voice: plain, reassuring and factual. Short sentences, concrete facts, no hard sell.
-- Contact: +91 72001 41515 (phone and WhatsApp).
+- Name: Chennai Plots. Tagline under the logo: "Plots-only marketplace".
+- Logo: a green plot-grid mark with a clay corner peg, drawn inline as SVG, plus the wordmark with "Plots" in green.
+- Voice: plain, factual, buyer-first. Short sentences. Tell buyers to verify documents themselves.
+- The earlier i5 identity (i5 logo, orange palette, "Think high, achieve high") is retired from the site. The logo files remain in `assets/` but are unused.
 
 ## Evidence on Hand
 
-Confirmed by the user and usable as fact:
+Confirmed and usable as fact:
 
-- 80+ projects delivered; in business since 2010; 15+ years in Chennai real estate.
-- Founder & Managing Director: Mr. Prasad P, 18+ years in real estate.
-- Award: Trailblazers 2026, Times of India, Tamil Nadu.
-- Vision: one of the Top 10 real estate brands in Tamil Nadu by 2035, and in India by 2045.
-- i5 Palace: 92-acre DTCP approved gated township near GST Road.
+- The four i5 plot layouts and their details listed above. i5 Housing & Properties has been in business since 2010.
+- General facts about DTCP, CMDA and TNRERA used in the buying guide.
 
 Assets:
 
-- Real: Tamil Nadu aerial hero video loop and posters (`assets/hero/`).
-- Stock: the founder portrait and all project photos are Unsplash images. The user has approved stock imagery for now. Do not present stock images as real project sites or as the founder.
+- Real: the Tamil Nadu aerial hero video and posters (`assets/hero/`).
+- Stock: all listing photos are Unsplash images and carry an "Illustrative image" tag. Do not present them as real sites.
 
 Placeholder content, by the user's request:
 
-- Six **sample listings** from fictional developers (Lorem Builders, Ipsum Developers, Dolor Constructions, Amet Estates) with lorem ipsum project names. Each is badged "Sample listing", has no booking action and shows "Price on request". Replace them with real third-party listings, or remove them, before promoting the marketplace to buyers.
-- Advisor avatars are **initials badges**, not photos. Use real advisor or developer photos only when supplied.
+- Six **sample listings** from fictional developers (Lorem Builders, Ipsum Developers, Dolor Constructions, Amet Estates). Each is badged "Sample listing", cannot be booked, has no detail page and shows no price, size or approval. Replace them with real listings, or remove them, before promoting the site.
+- Developer avatars are initials badges, not photos or logos.
+- The contact number.
 
-Absent, and must not be invented: customer testimonials, reviews, prices, plot sizes, availability counts, RERA registration numbers, or press beyond the one award.
+Absent, and must not be invented: prices, plot sizes, availability, approval or RERA registration numbers, testimonials, reviews, listing counts beyond what is on the page, and claims about how many buyers or developers use the site.
 
 ## Product Principles
 
-1. **Trust before persuasion.** Approvals, verified titles and documents come first; every claim on the page must be one the company can back up.
-2. **Every path leads to a person.** Call, WhatsApp, callback and site visit stay within one tap from anywhere on the page.
-3. **Serve four buyers without favouring one.** First-time buyers, IT professionals, NRIs and investors should each find their route quickly.
-4. **Honest about what is not published.** Pricing and availability go through an advisor; never imply figures that are not on hand.
+1. **Plots only.** Never add other property types; the narrow focus is the point.
+2. **Approval up front.** Every listing states its declared approval, or says it is not declared.
+3. **Marked honestly.** Sample, illustrative and placeholder content is always labelled as such.
+4. **Buyer verifies, developer sells.** The site helps buyers compare and reach developers; it never implies that it has checked title documents or that it sells plots.

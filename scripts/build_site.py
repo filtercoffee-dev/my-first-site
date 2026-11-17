@@ -1,0 +1,887 @@
+#!/usr/bin/env python3
+"""Build the Chennai Plots site: index.html and one page per real listing.
+
+Run from the repo root:  python3 scripts/build_site.py
+
+Rules (see PRODUCT.md):
+- Plots only. Real listings must carry only confirmed facts: no invented prices,
+  plot sizes or approval numbers.
+- Sample listings are placeholders: always badged "Sample listing", never
+  bookable, and they get no detail page.
+- Set PHONE and WHATSAPP below to switch on Call, WhatsApp and enquiries.
+"""
+import html, pathlib, re
+from collections import Counter
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+CDN = "https://cdn.jsdelivr.net/gh/filtercoffee-dev/my-first-site@3d0a8afa2ebcb06c3fb64555117ec69cc44e27d2/assets"
+U = "https://images.unsplash.com/photo-"
+
+# ---- contact: placeholder until the real number is supplied -----------------
+PHONE = None          # e.g. "+91 98765 43210"
+WHATSAPP = None       # digits only, e.g. "919876543210"
+PHONE_LABEL = PHONE or "+91 00000 00000"
+
+BRAND = "Chennai Plots"
+
+# ---- listings ----------------------------------------------------------------
+I5 = dict(dev="i5 Housing &amp; Properties", av="i5", avc="#1f5c3f", verified=True, since="Since 2010")
+LISTINGS = [
+    dict(slug="i5-palace", name="i5 Palace", loc="Nellikuppam - Keezhur, Chengalpattu", area="Chengalpattu", corridor="GST Road",
+         appr="DTCP", img="1500382017468-9049fed747ef", flagship=True,
+         facts=[("Layout size", "92 acres"), ("Approval", "DTCP")],
+         all_facts=[("Property type", "Residential plots"), ("Layout size", "92 acres"), ("Approval", "DTCP"), ("Community", "Gated"),
+                    ("Location", "Nellikuppam - Keezhur, near GST Road and Guduvanchery")],
+         overview="Located at Nellikuppam - Keezhur, i5 Palace offers DTCP approved plots in a planned, gated community close to GST Road and Guduvanchery, one of Chennai's fastest-growing suburbs.",
+         highlights=["92-acre planned layout", "DTCP approved layout", "Gated community", "Wide internal roads", "Parks and open spaces", "Near GST Road", "Bank loan assistance"], **I5),
+    dict(slug="i5-aurowin-enclave", name="i5 Aurowin Enclave", loc="Chennai", area="Chennai", corridor="",
+         appr="DTCP", img="1464226184884-fa280b87c399", facts=[("Type", "Residential plots"), ("Approval", "DTCP")], **I5),
+    dict(slug="i5-wonder-city", name="i5 Wonder City", loc="Chennai", area="Chennai", corridor="",
+         appr="DTCP", img="1523348837708-15d4a09cfac2", facts=[("Type", "Residential plots"), ("Approval", "DTCP")], **I5),
+    dict(slug="i5-palace-city", name="i5 Palace City", loc="Chennai", area="Chennai", corridor="",
+         appr="DTCP", img="1449844908441-8829872d2607", facts=[("Type", "Residential plots"), ("Approval", "DTCP")], **I5),
+    # ---- SAMPLE LISTINGS: placeholders only. Replace with real listings or remove before promoting the site. ----
+    dict(name="Lorem Gardens", loc="Guduvanchery", area="Guduvanchery", corridor="GST Road", appr="", img="1500382017468-9049fed747ef",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Lorem Builders", av="LB", avc="#4f6d8a"),
+    dict(name="Ipsum Enclave", loc="Kelambakkam", area="Kelambakkam", corridor="OMR", appr="", img="1628624747186-a941c476b7ef",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Ipsum Developers", av="ID", avc="#7a5c8f"),
+    dict(name="Dolor Nagar", loc="Thiruporur", area="Thiruporur", corridor="OMR", appr="", img="1592595896551-12b371d546d5",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Dolor Constructions", av="DC", avc="#8a6a3a"),
+    dict(name="Sit Amet Meadows", loc="Oragadam", area="Oragadam", corridor="Oragadam", appr="", img="1464226184884-fa280b87c399",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Amet Estates", av="AE", avc="#6a5a7a"),
+    dict(name="Consectetur Avenue", loc="Tambaram", area="Tambaram", corridor="GST Road", appr="", img="1523348837708-15d4a09cfac2",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Lorem Builders", av="LB", avc="#4f6d8a"),
+    dict(name="Adipiscing Layout", loc="Poonamallee", area="Poonamallee", corridor="West Chennai", appr="", img="1449844908441-8829872d2607",
+         facts=[("Type", "Residential plots"), ("Status", "Sample")], dev="Ipsum Developers", av="ID", avc="#7a5c8f"),
+]
+REAL = [l for l in LISTINGS if l.get("slug")]
+CORRIDORS = ["GST Road", "OMR", "West Chennai", "Oragadam"]
+AREA_NOTE = {"Chennai": "Chennai (area on request)"}
+
+# ---- shared pieces -----------------------------------------------------------
+FONT = ('@font-face{font-family:"Archivo";font-style:normal;font-weight:400 700;font-display:swap;'
+        f'src:url("{CDN}/fonts/archivo-sub.woff2") format("woff2"),url("ASSETS/fonts/archivo-sub.woff2") format("woff2");'
+        'unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}')
+
+CSS = r"""
+:root{
+  --ink:#16211b; --text:#46504a; --muted:#5d665f; --line:#d9ddd4; --line-2:#c2c9bd;
+  --paper:#f2f5f0; --panel:#ffffff; --chip:#e6eae2; --dark:#16211b; --dark-line:#33423a; --dark-text:#cfd8d0;
+  --green:#1f5c3f; --green-dark:#17462f; --green-tint:#e7f0ea;
+  --clay:#b5452a; --clay-dark:#963a22;
+  --ok-bg:#eaf4e7; --ok-ink:#2f6b22; --sample-bg:#fff4d6; --sample-ink:#6b5000; --fav:#b5452a;
+  --fs-label:.75rem; --fs-small:.875rem; --fs-body:1rem; --fs-lead:1.125rem; --fs-item:1.125rem; --fs-h3:1.25rem;
+  --fs-h2:clamp(1.75rem,3.2vw,2.5rem); --fs-h1:clamp(2.25rem,5vw,4rem);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+html{accent-color:var(--green);caret-color:var(--green)}
+::selection{background:#cfe3d6;color:var(--ink)}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.hero :focus-visible,.dark :focus-visible,footer :focus-visible{outline-color:#fff}
+[id]{scroll-margin-top:88px}
+body{font-family:"Archivo",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+p,li,dd{text-wrap:pretty}
+h1,h2,h3{font-weight:700;line-height:1.15;letter-spacing:-.015em;text-wrap:balance}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;background:var(--ink);color:#fff;padding:10px 16px;font-weight:600}
+.skip:focus{top:12px}
+.ico{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.lbl{font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:3px;font:600 var(--fs-body)/1 "Archivo",Arial,sans-serif;border:1.5px solid transparent;cursor:pointer;min-height:46px;transition:background .2s,color .2s,border-color .2s}
+.btn .ico{width:18px;height:18px}
+.btn-main{background:var(--clay);color:#fff}
+.btn-main:hover{background:var(--clay-dark)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:var(--green-dark)}
+.btn-line{border-color:var(--line-2);background:var(--panel);color:var(--ink)}
+.btn-line:hover{border-color:var(--ink)}
+.btn:active{transform:scale(.97)}
+.btn[aria-disabled="true"]{background:var(--chip);color:var(--muted);cursor:not-allowed;border-color:transparent}
+section{padding:80px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:28px;flex-wrap:wrap;margin-bottom:36px}
+.head h2{font-size:var(--fs-h2);max-width:20ch}
+.head p{color:var(--text);max-width:46ch;font-size:var(--fs-lead);line-height:1.55}
+
+/* header */
+.nav{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1.3125rem;letter-spacing:-.02em;line-height:1}
+.logo svg{width:34px;height:34px;flex:0 0 auto}
+.logo b{color:var(--green);font-weight:700}
+.logo small{display:block;font-size:.6875rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.nav ul{display:flex;gap:30px;list-style:none;font-weight:500;font-size:.9375rem}
+.nav ul a{display:block;padding:12px 0;border-bottom:2px solid transparent}
+.nav ul a:hover{border-color:var(--green)}
+.nav-cta{display:flex;align-items:center;gap:18px}
+.short-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.9375rem;padding:12px 0}
+.short-link .ico{width:18px;height:18px;color:var(--fav)}
+.short-link b{min-width:22px;height:22px;border-radius:11px;background:var(--chip);display:inline-grid;place-items:center;font-size:.8125rem;padding:0 6px}
+
+/* hero */
+.hero{position:relative;color:#fff;padding:64px 0 72px;overflow:hidden;isolation:isolate;background:var(--dark)}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img,.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-media video{opacity:0;transition:opacity .8s ease}
+.hero-media video.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,30,22,.62),rgba(14,30,22,.84))}
+.hero h1{font-size:var(--fs-h1);max-width:16ch;line-height:1.03;letter-spacing:-.025em}
+.hero .lead{font-size:var(--fs-lead);line-height:1.55;color:rgba(255,255,255,.9);max-width:54ch;margin:16px 0 30px}
+.finder{background:var(--panel);color:var(--ink);box-shadow:0 26px 50px -26px rgba(0,0,0,.7);max-width:1040px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.1fr) auto}
+.finder .f{display:flex;flex-direction:column;border-right:1px solid var(--line);cursor:pointer}
+.finder label{color:var(--muted);padding:16px 20px 0;cursor:pointer}
+.finder select,.finder input{border:0;background:transparent;font:500 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--ink);padding:6px 20px 16px;min-height:44px;width:100%}
+.finder select{padding-left:16px}
+.finder select:focus-visible,.finder input:focus-visible{outline:none}
+.finder .f:focus-within{box-shadow:inset 0 -3px 0 var(--green)}
+.finder .btn{border-radius:0;padding:0 32px;min-height:68px}
+.pop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px;font-size:var(--fs-small);color:rgba(255,255,255,.82)}
+.pop button{border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 14px;font:500 var(--fs-small) "Archivo",Arial,sans-serif;cursor:pointer;min-height:38px}
+.pop button:hover{background:rgba(255,255,255,.2)}
+
+/* promise strip */
+.strip{background:var(--panel);border-bottom:1px solid var(--line)}
+.strip .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.strip div{display:flex;gap:12px;align-items:flex-start;padding:20px 24px 20px 0}
+.strip div+div{padding-left:24px;border-left:1px solid var(--line)}
+.strip .ico{color:var(--green);margin-top:2px}
+.strip b{display:block}
+.strip span{font-size:var(--fs-small);color:var(--text);line-height:1.45}
+
+/* results */
+.mk{padding:56px 0 88px}
+.mk-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.mk-top h2{font-size:var(--fs-h2)}
+.mk-count{color:var(--text);margin-top:6px}
+.mk-count b{color:var(--ink)}
+.mk-sort{display:flex;align-items:center;gap:10px;font-size:var(--fs-small);color:var(--text)}
+.mk-sort select{font:500 var(--fs-body) "Archivo",Arial,sans-serif;border:1px solid var(--line-2);border-radius:3px;padding:10px 12px;background:var(--panel);min-height:44px;color:var(--ink)}
+.mk-grid{display:grid;grid-template-columns:264px minmax(0,1fr);gap:32px;align-items:start}
+.flt{position:sticky;top:96px;border:1px solid var(--line);background:var(--panel)}
+.flt>summary{display:none}
+.flt-in{padding:6px 22px 22px}
+.flt fieldset{border:0;border-bottom:1px solid var(--line);padding:16px 0}
+.flt legend{color:var(--muted);padding:0;margin-bottom:10px;float:left;width:100%}
+.flt label{display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer;font-size:.9375rem;clear:both}
+.flt label .n{margin-left:auto;color:var(--muted);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.flt input{width:18px;height:18px;flex:0 0 auto}
+.flt-clear{margin-top:16px;width:100%}
+.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.lst{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;position:relative;transition:box-shadow .25s var(--ease-out),border-color .25s}
+.lst:hover{border-color:var(--line-2);box-shadow:0 18px 36px -26px rgba(22,33,27,.45)}
+.lst[hidden]{display:none}
+.lst-img{aspect-ratio:16/10;background:#d3d9cf;position:relative;overflow:hidden}
+.lst-img img{width:100%;height:100%;object-fit:cover}
+.illus{position:absolute;right:8px;bottom:8px;background:rgba(22,33,27,.78);color:#fff;padding:4px 8px;pointer-events:none;white-space:nowrap}
+.badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 70px)}
+.bdg{padding:5px 8px;background:#fff;color:var(--ink);display:inline-flex;align-items:center;gap:5px;letter-spacing:.06em}
+.bdg .ico{width:13px;height:13px;stroke-width:2.4}
+.bdg-ok{background:var(--ok-bg);color:var(--ok-ink)}
+.bdg-feat{background:var(--green);color:#fff}
+.bdg-sample{background:var(--sample-bg);color:var(--sample-ink)}
+.fav{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.94);display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:transform .15s}
+.fav[aria-pressed="true"]{color:var(--fav)}
+.fav[aria-pressed="true"] .ico{fill:currentColor}
+.fav:active{transform:scale(.9)}
+.lst-body{padding:18px 20px 4px;flex:1}
+.lst h3{font-size:var(--fs-h3);line-height:1.2;margin-bottom:4px}
+.lst h3 a:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.loc{display:flex;gap:6px;align-items:center;color:var(--text);font-size:var(--fs-small)}
+.loc .ico{width:16px;height:16px;color:var(--muted)}
+.corr{display:inline-block;margin-top:10px;background:var(--green-tint);color:var(--green-dark);padding:4px 8px;font-size:var(--fs-small);font-weight:500}
+.lst dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 16px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.lst dt{color:var(--muted)}
+.lst dd{font-weight:600;overflow-wrap:break-word}
+.price{margin-top:12px;font-size:var(--fs-small);color:var(--text)}
+.price b{color:var(--ink);font-size:var(--fs-body)}
+.by{display:flex;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid var(--line);margin-top:14px}
+.av{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9375rem;color:#fff;background:var(--av,#5d665f);letter-spacing:-.01em}
+.by b{display:block;font-size:.9375rem;line-height:1.3}
+.by div span{display:flex;align-items:center;gap:4px;font-size:var(--fs-small);color:var(--text)}
+.by div .ico{width:14px;height:14px;color:var(--ok-ink);stroke-width:2.4}
+.act{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.act a{padding:14px;text-align:center;font-weight:600;min-height:48px;display:flex;align-items:center;justify-content:center}
+.act a:first-child{border-right:1px solid var(--line)}
+.act a:first-child:hover{color:var(--green)}
+.act a:last-child{background:var(--clay);color:#fff}
+.act a:last-child:hover{background:var(--clay-dark)}
+.act.is-sample{display:block;padding:14px 20px;font-size:var(--fs-small);color:var(--muted);text-align:center;background:#f7f9f5}
+.empty{grid-column:1/-1;border:1px dashed var(--line-2);padding:48px 24px;text-align:center;color:var(--text)}
+.empty b{display:block;color:var(--ink);font-size:var(--fs-item);margin-bottom:6px}
+.empty button{margin-top:14px}
+
+/* featured */
+.feature{background:var(--panel);border-block:1px solid var(--line)}
+.feature .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+.feature .photo{aspect-ratio:5/4;background:#d3d9cf;overflow:hidden;position:relative}
+.feature .photo img{width:100%;height:100%;object-fit:cover}
+.feature h2{font-size:var(--fs-h2);margin:10px 0 16px}
+.feature p{color:var(--text);font-size:var(--fs-lead);line-height:1.55;max-width:56ch}
+.ticks{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin:24px 0 28px}
+.ticks li{display:flex;gap:10px;align-items:flex-start}
+.ticks .ico{color:var(--green);margin-top:2px;stroke-width:2}
+.row-btns{display:flex;gap:12px;flex-wrap:wrap}
+.tagline{display:inline-flex;align-items:center;gap:8px;color:var(--green-dark);background:var(--green-tint);padding:6px 10px}
+
+/* localities */
+.locg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.locg button{text-align:left;border:1px solid var(--line);background:var(--panel);padding:18px 20px;cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;gap:4px;min-height:44px;transition:border-color .2s}
+.locg button:hover{border-color:var(--green)}
+.locg b{font-size:var(--fs-item)}
+.locg span{font-size:var(--fs-small);color:var(--text)}
+
+/* guide */
+.dark{background:var(--dark);color:#fff}
+.dark .head p{color:var(--dark-text)}
+.guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--dark-line);border:1px solid var(--dark-line)}
+.guide div{background:var(--dark);padding:28px}
+.guide h3{font-size:var(--fs-h3);margin-bottom:8px}
+.guide p{color:var(--dark-text);line-height:1.65;letter-spacing:.01em}
+.docs{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--dark-text)}
+.docs li{list-style:none;border:1px solid var(--dark-line);padding:8px 12px;font-size:.9375rem;color:#fff}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:20px}
+.steps li::before{content:"Step " counter(s);display:block;color:var(--green);font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.steps h3{font-size:var(--fs-h3);margin-bottom:6px}
+.steps p{color:var(--text)}
+
+/* developers band */
+.devband{background:var(--green);color:#fff;padding:56px 0}
+.devband .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.devband h2{font-size:var(--fs-h2);max-width:22ch}
+.devband p{color:#dbe8df;margin-top:8px;max-width:56ch}
+.devband .btn{background:#fff;color:var(--green-dark)}
+.devband .btn:hover{background:var(--paper)}
+
+/* faq */
+.faq .wrap{display:grid;grid-template-columns:1fr 1.5fr;gap:56px}
+.faq h2{font-size:var(--fs-h2);margin-bottom:14px}
+.faq p.sub{color:var(--text)}
+details.q{border-bottom:1px solid var(--line)}
+details.q:first-child{border-top:1px solid var(--line)}
+details.q summary{font-weight:600;font-size:var(--fs-item);line-height:1.35;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"+";font-weight:400;font-size:1.4rem;line-height:1;color:var(--muted)}
+details.q[open] summary::after{content:"−"}
+details.q p{color:var(--text);margin-top:-8px;padding-bottom:20px;max-width:65ch}
+
+/* enquiry */
+.enq{background:var(--panel);border-top:1px solid var(--line)}
+.enq .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.enq h2{font-size:var(--fs-h2);margin-bottom:12px}
+.enq>div>div>p{color:var(--text);max-width:48ch}
+.form{border:1px solid var(--line);padding:28px;background:var(--paper)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fld{margin-bottom:16px}
+.fld label{display:block;font-size:var(--fs-small);font-weight:600;margin-bottom:6px}
+.fld input,.fld select{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:3px;font:400 var(--fs-body) "Archivo",Arial,sans-serif;color:var(--ink);background:var(--panel);min-height:46px}
+.fld input:focus-visible,.fld select:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+.form .btn{width:100%}
+.form small{display:block;color:var(--muted);margin-top:12px;font-size:var(--fs-small);line-height:1.5}
+.sent{margin-top:14px;padding:14px 16px;border:1px solid var(--line-2);background:var(--panel);font-size:var(--fs-small);line-height:1.5}
+.sent[hidden]{display:none}
+.sent:not([hidden]){animation:sent-in .35s var(--ease-out)}
+@keyframes sent-in{from{opacity:0;transform:translateY(6px)}}
+.sent a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.soon{display:inline-flex;align-items:center;gap:8px;margin-top:18px;background:var(--sample-bg);color:var(--sample-ink);padding:8px 12px;font-size:var(--fs-small);font-weight:500}
+
+/* footer */
+footer{background:var(--dark);color:var(--dark-text);padding:64px 0 28px;font-size:.9375rem;line-height:1.65}
+.foot{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--dark-line)}
+footer .logo{color:#fff;margin-bottom:14px}
+footer .logo b{color:#9fd3b5}
+footer .logo small{color:var(--dark-text)}
+footer h3{color:#fff;margin-bottom:14px;font-size:var(--fs-label);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+footer ul{list-style:none;display:grid}
+footer ul a{display:inline-block;padding:9px 0}
+footer a:hover{color:#fff}
+.legal{padding-top:22px;font-size:var(--fs-small);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* mobile bar */
+.mbar{display:none}
+
+/* project page */
+.crumbs{font-size:var(--fs-small);color:var(--text);padding:18px 0}
+.crumbs a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-2)}
+.crumbs a:hover{color:var(--ink)}
+.crumbs span[aria-current]{color:var(--ink);font-weight:600}
+.pd-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-bottom:22px}
+.pd-head h1{font-size:var(--fs-h2);line-height:1.1}
+.pd-head .loc{margin-top:8px;font-size:var(--fs-body)}
+.pd-price{text-align:right}
+.pd-price b{display:block;font-size:var(--fs-item)}
+.pd-price span{font-size:var(--fs-small);color:var(--text)}
+.pd-gallery{position:relative;aspect-ratio:21/9;background:#d3d9cf;overflow:hidden}
+.pd-gallery img{width:100%;height:100%;object-fit:cover}
+.pd-gallery .badges{top:14px;left:14px}
+.pd-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:40px;align-items:start;padding:40px 0 72px}
+.pd-sec{padding:28px 0;border-bottom:1px solid var(--line)}
+.pd-sec:first-child{padding-top:0}
+.pd-sec h2{font-size:1.5rem;margin-bottom:14px}
+.pd-sec p{color:var(--text);max-width:68ch}
+.pd-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+.pd-facts div{padding:14px 16px 14px 0;border-bottom:1px solid var(--line)}
+.pd-facts dt{color:var(--muted)}
+.pd-facts dd{font-weight:600;margin-top:2px}
+.pd-hl{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+.pd-hl li{display:flex;gap:10px;align-items:flex-start}
+.pd-hl .ico{color:var(--green);margin-top:2px;stroke-width:2}
+.pd-docs{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.pd-docs li{background:var(--chip);padding:8px 12px;font-size:.9375rem}
+.pd-note{font-size:var(--fs-small);color:var(--muted);margin-top:14px}
+.pd-side{position:sticky;top:96px;border:1px solid var(--line);background:var(--panel)}
+.pd-side .by{margin:0;border-top:0;border-bottom:1px solid var(--line);padding:20px}
+.pd-side .av{width:52px;height:52px;font-size:1.125rem}
+.pd-side .form{border:0;background:none;padding:20px}
+.pd-side .form h2{font-size:var(--fs-h3);margin-bottom:4px}
+.pd-side .form>p{color:var(--text);font-size:var(--fs-small);margin-bottom:16px}
+.sim{background:var(--panel);border-top:1px solid var(--line);padding:64px 0}
+.sim h2{font-size:var(--fs-h2);margin-bottom:24px}
+.sim .results{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+@media (max-width:1024px){
+  .nav .wrap{flex-wrap:wrap;padding-top:10px;row-gap:0}
+  .nav ul{order:3;width:100%;gap:24px;overflow-x:auto;scrollbar-width:none;padding:2px 0 6px;font-size:.9rem}
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav ul a{white-space:nowrap}
+  [id]{scroll-margin-top:124px}
+  .nav-cta .btn-line{display:none}
+  .mk-grid{grid-template-columns:230px minmax(0,1fr);gap:24px}
+  .results{grid-template-columns:1fr}
+  .locg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .finder{grid-template-columns:1fr 1fr}
+  .finder .f{border-bottom:1px solid var(--line)}
+  .finder .f:nth-child(2){border-right:0}
+  .finder .f:nth-child(3){grid-column:1/-1;border-right:0}
+  .finder .btn{grid-column:1/-1;min-height:56px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pd-grid{grid-template-columns:minmax(0,1fr) 300px;gap:28px}
+  .sim .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  section{padding:60px 0}
+  .mk-grid{grid-template-columns:1fr}
+  .flt{position:static}
+  .flt>summary{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-weight:600;cursor:pointer;list-style:none;min-height:48px}
+  .flt>summary::-webkit-details-marker{display:none}
+  .flt>summary::after{content:"+";font-size:1.4rem;font-weight:400;color:var(--muted)}
+  .flt[open]>summary::after{content:"−"}
+  .flt[open]>summary{border-bottom:1px solid var(--line)}
+  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feature .wrap,.faq .wrap,.enq .wrap{grid-template-columns:1fr;gap:32px}
+  .guide{grid-template-columns:1fr}
+  .strip .wrap{grid-template-columns:1fr}
+  .strip div{padding:16px 0}
+  .strip div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+  .pd-grid{grid-template-columns:1fr}
+  .pd-side{position:static}
+  .pd-gallery{aspect-ratio:16/9}
+  .pd-price{text-align:left}
+}
+@media (max-width:600px){
+  .nav-cta .btn{display:none}
+  .hero{padding:40px 0 48px}
+  .finder{grid-template-columns:1fr}
+  .finder .f{border-right:0}
+  .results,.sim .results,.steps,.row,.ticks,.pd-facts,.pd-hl{grid-template-columns:1fr}
+  .row{gap:0}
+  .locg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mk{padding:40px 0 60px}
+  .lst-img{aspect-ratio:16/9}
+  .foot{grid-template-columns:1fr}
+  .form{padding:20px}
+  body{padding-bottom:58px}
+  html{scroll-padding-bottom:70px}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.2fr;position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--panel);border-top:1px solid var(--line)}
+  .mbar a{padding:14px 8px;text-align:center;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;font-size:.9375rem;min-height:56px}
+  .mbar a+a{border-left:1px solid var(--line)}
+  .mbar a:last-child{background:var(--clay);color:#fff}
+  .mbar .ico{width:18px;height:18px}
+}
+@media (max-width:420px){.locg{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.sent:not([hidden]){animation:none}.btn:active,.fav:active{transform:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+"""
+
+SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C1 8.6 3 5 6.6 5c2 0 3.5 1.1 4.4 2.6h2C13.9 6.1 15.4 5 17.4 5 21 5 23 8.6 21.6 11.8 19.5 16.4 12 21 12 21z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.4 3.4 8.1 8 9 4.6-.9 8-4.6 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-plot" viewBox="0 0 24 24"><path d="M3 9h18M9 3v18"/><rect x="3" y="3" width="18" height="18"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.6z"/></symbol>
+</svg>"""
+
+MARK = ('<svg viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="3" fill="#1f5c3f"/>'
+        '<path d="M9 9h16v16H9z" fill="none" stroke="#fff" stroke-width="2"/><path d="M9 17h16M17 9v16" stroke="#fff" stroke-width="1.4" opacity=".7"/>'
+        '<circle cx="25" cy="9" r="3.2" fill="#b5452a" stroke="#1f5c3f" stroke-width="1.2"/></svg>')
+FAVICON = "data:image/svg+xml," + re.sub(r"[#<>\"]", lambda m: {"#": "%23", "<": "%3C", ">": "%3E", '"': "'"}[m.group(0)],
+                                          MARK.replace('aria-hidden="true"', 'xmlns="http://www.w3.org/2000/svg"'))
+
+
+def logo(href):
+    return f'<a class="logo" href="{href}" aria-label="{BRAND} home">{MARK}<span>Chennai <b>Plots</b><small>Plots-only marketplace</small></span></a>'
+
+
+def img(pid, w, h, q=58):
+    return f"{U}{pid}?auto=format&fit=crop&w={w}&q={q}&h={h}"
+
+
+def badges(l):
+    b = []
+    if l.get("flagship"):
+        b.append('<span class="bdg lbl bdg-feat">Featured</span>')
+    if l["appr"]:
+        b.append(f'<span class="bdg lbl bdg-ok"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>{l["appr"]} approved</span>')
+    if not l.get("slug"):
+        b.append('<span class="bdg lbl bdg-sample">Sample listing</span>')
+    return "".join(b)
+
+
+def byline(l):
+    if l.get("verified"):
+        sub = f'<span><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Verified developer · {l["since"]}</span>'
+    else:
+        sub = "<span>Sample developer</span>"
+    return f'<div class="by"><span class="av" style="--av:{l["avc"]}" aria-hidden="true">{l["av"]}</span><div><b>{l["dev"]}</b>{sub}</div></div>'
+
+
+def card(l, n, base="", lazy=True):
+    real = bool(l.get("slug"))
+    src, srcset = img(l["img"], 640, 400), f'{img(l["img"],420,262)} 420w, {img(l["img"],640,400)} 640w, {img(l["img"],960,600)} 960w'
+    im = (f'<img data-src="{src}" data-srcset="{srcset}"' if lazy else f'<img src="{src}" srcset="{srcset}"') + \
+         ' sizes="(max-width:600px) calc(100vw - 32px), (max-width:1024px) 60vw, 440px" alt="" loading="lazy" decoding="async" width="640" height="400">'
+    name = l["name"]
+    title = f'<a href="{base}projects/{l["slug"]}.html">{name}</a>' if real else name
+    dl = "".join(f"<div><dt class=\"lbl\">{a}</dt><dd>{b}</dd></div>" for a, b in l["facts"])
+    corr = f'<span class="corr">{l["corridor"]} corridor</span>' if l["corridor"] else ""
+    if real:
+        act = (f'<div class="act"><a href="{base}projects/{l["slug"]}.html" aria-label="View details of {name}">View details</a>'
+               f'<a href="{base}projects/{l["slug"]}.html#enquire" aria-label="Enquire about {name}">Enquire</a></div>')
+    else:
+        act = '<div class="act is-sample">Sample listing · not available to book</div>'
+    return f'''      <article class="lst" data-area="{l["area"]}" data-corridor="{l["corridor"]}" data-appr="{l["appr"].lower()}" data-by="{"verified" if l.get("verified") else "sample"}" data-order="{n}" data-name="{html.escape((name+" "+html.unescape(l["dev"])+" "+l["loc"]).lower())}">
+        <div class="lst-img">{im}<span class="illus lbl">Illustrative image</span>
+          <div class="badges">{badges(l)}</div>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Shortlist {name}"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></button></div>
+        <div class="lst-body"><h3>{title}</h3><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>{l["loc"]}</p>{corr}
+          <dl>{dl}</dl><p class="price"><b>Price on request</b></p></div>
+        {byline(l)}
+        {act}
+      </article>'''
+
+
+def head(title, desc, assets, extra=""):
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="icon" type="image/svg+xml" href="{FAVICON}">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="font" type="font/woff2" href="{CDN}/fonts/archivo-sub.woff2" crossorigin>
+{extra}<style>
+{FONT.replace("ASSETS", assets)}
+{CSS}</style>
+</head>'''
+
+
+def nav(base):
+    return f'''<header class="nav">
+  <div class="wrap">
+    {logo(base + "index.html" if base else "#top")}
+    <ul>
+      <li><a href="{base and base+"index.html"}#listings">Plots</a></li>
+      <li><a href="{base and base+"index.html"}#localities">Localities</a></li>
+      <li><a href="{base and base+"index.html"}#guide">Buying guide</a></li>
+      <li><a href="{base and base+"index.html"}#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta"><a class="short-link" href="{base and base+"index.html"}#listings" data-show-short><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg>Shortlist <b id="shortCount">0</b></a><a class="btn btn-line" href="{base and base+"index.html"}#developers">List your plots</a><a class="btn btn-main" href="#enquire">Enquire</a></div>
+  </div>
+</header>'''
+
+
+def footer(base):
+    b = base and base + "index.html"
+    contact = (f'<li><a href="tel:{PHONE.replace(" ","")}">{PHONE}</a></li>' if PHONE else f"<li>{PHONE_LABEL} (number coming soon)</li>")
+    return f'''<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>{logo(base + "index.html" if base else "#top")}<p>A marketplace for residential plots in and around Chennai. Compare layouts, check approvals and deal with the developer directly.</p></div>
+      <div><h3>Browse</h3><ul><li><a href="{b}#listings">All plots</a></li><li><a href="{b}#localities">Localities</a></li><li><a href="{b}#featured">Featured layout</a></li></ul></div>
+      <div><h3>Learn</h3><ul><li><a href="{b}#guide">Plot buying guide</a></li><li><a href="{b}#how">How it works</a></li><li><a href="{b}#faq">FAQ</a></li></ul></div>
+      <div><h3>Contact</h3><ul>{contact}<li><a href="{b}#developers">List your plots</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© <span id="yr"></span> {BRAND}. All rights reserved.</span><span>Listings show details declared by each developer. Verify documents before you buy.</span></div>
+  </div>
+</footer>'''
+
+
+ENQ_JS = """
+// Enquiries: WhatsApp when a number is configured, otherwise an honest notice
+const WA=%s, PHONE=%s;
+document.querySelectorAll('form[data-enquiry]').forEach(f=>f.addEventListener('submit',e=>{
+  e.preventDefault();const note=f.querySelector('.sent'),btn=f.querySelector('[type=submit]');
+  const about=f.dataset.enquiry||(f.interest?f.interest.value:'');
+  if(!WA){note.innerHTML='Thanks, '+(f.name.value.split(' ')[0]||'there')+'. Enquiries are not switched on yet because the contact number is still being set up. Nothing has been sent.';note.hidden=false;return}
+  const msg='Hi Chennai Plots, I would like to enquire about '+(about||'plots in Chennai')+'.\\nName: '+f.name.value+'\\nPhone: '+f.phone.value;
+  const url='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
+  btn.disabled=true;setTimeout(()=>btn.disabled=false,3000);
+  const w=window.open(url,'_blank');
+  note.innerHTML=w?'WhatsApp is open with your message ready. Press send there and we will get back to you. Nothing opened? <a href="'+url+'" target="_blank" rel="noopener">Open WhatsApp again</a>'+(PHONE?' or call <a href="tel:'+PHONE.replace(/ /g,'')+'">'+PHONE+'</a>':'')+'.'
+    :'Your browser stopped WhatsApp from opening, so your details are still here. <a href="'+url+'" target="_blank" rel="noopener">Open WhatsApp</a>.';
+  note.hidden=false;if(w)f.reset();
+}));
+document.getElementById('yr').textContent=new Date().getFullYear();
+""" % (repr(WHATSAPP) if WHATSAPP else "null", repr(PHONE) if PHONE else "null")
+
+SHORT_JS = """
+// Shortlist count (shared with the home page through localStorage)
+(()=>{let n=0;try{n=JSON.parse(localStorage.getItem('cp-shortlist')||'[]').length}catch(e){}
+  const el=document.getElementById('shortCount');if(el)el.textContent=n})();
+"""
+
+SOON = '' if WHATSAPP else '<p class="soon"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Contact number coming soon. Enquiries are not being sent yet.</p>'
+
+
+def enquiry_form(about=None, heading="Ask about a plot", sub="Tell us what you are looking for and we will connect you with the developer."):
+    interest = ""
+    if about is None:
+        opts = "".join(f"<option>{l['name']}</option>" for l in REAL) + "<option>Not sure yet</option>"
+        interest = f'<div class="fld"><label for="v-int">Interested in</label><select id="v-int" name="interest">{opts}</select></div>'
+    return f'''<form class="form" data-enquiry="{about or ""}">
+          <h2>{heading}</h2><p>{sub}</p>
+          <div class="{"row" if about is None else ""}">
+            <div class="fld"><label for="v-name">Name</label><input id="v-name" name="name" autocomplete="name" placeholder="Your full name" required></div>
+            <div class="fld"><label for="v-phone">Mobile number</label><input id="v-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 98765 43210" required pattern="\\+?[0-9][0-9 \\-]{{8,14}}[0-9]" title="Enter a 10-digit mobile number, with country code if outside India"></div>
+          </div>
+          {interest}
+          <button class="btn btn-main" type="submit">Send enquiry</button>
+          <p class="sent" role="status" hidden></p>
+          <small>Your details are only used to answer this enquiry.</small>
+        </form>'''
+
+
+# ================= HOME =================
+def home():
+    cards = "\n".join(card(l, n) for n, l in enumerate(LISTINGS))
+    total = len(LISTINGS)
+    areas = []
+    for l in LISTINGS:
+        if l["area"] not in areas:
+            areas.append(l["area"])
+    areas.sort(key=lambda a: (a == "Chennai", a))
+    ac, cc = Counter(l["area"] for l in LISTINGS), Counter(l["corridor"] for l in LISTINGS if l["corridor"])
+    nver = sum(1 for l in LISTINGS if l.get("verified"))
+    area_opts = "".join(f'<option value="{a}">{AREA_NOTE.get(a,a)}</option>' for a in areas)
+    corr_radios = f'<label><input type="radio" name="corridor" value="" checked>All corridors<span class="n">{total}</span></label>' + "".join(
+        f'<label><input type="radio" name="corridor" value="{c}">{c}<span class="n">{cc[c]}</span></label>' for c in CORRIDORS)
+    area_tiles = "".join(f'<button type="button" data-area="{a}"><b>{AREA_NOTE.get(a,a)}</b><span>{ac[a]} plot layout{"" if ac[a]==1 else "s"}</span></button>' for a in areas)
+    feat = REAL[0]
+    poster = f'{CDN}/hero/poster-1280.webp'
+    extra = (f'<link rel="preload" as="image" href="{poster}" imagesrcset="{CDN}/hero/poster-768.webp 768w, {poster} 1280w" imagesizes="100vw" fetchpriority="high">\n')
+    return f'''{head(f"{BRAND} | Plots for sale in Chennai: DTCP and RERA approved layouts",
+                 "Chennai Plots is a plots-only marketplace. Compare residential plot layouts around Chennai by corridor and approval, shortlist the ones you like and enquire with the developer.", "assets", extra)}
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{SPRITE}
+{nav("")}
+
+<section class="hero" id="top">
+  <div class="hero-media" id="heroMedia" data-mp4="{CDN}/hero/hero-720.mp4" data-mp4-sm="{CDN}/hero/hero-480.mp4">
+    <img src="{poster}" srcset="{CDN}/hero/poster-768.webp 768w, {poster} 1280w" sizes="100vw" alt="" fetchpriority="high" decoding="async" width="1280" height="720" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/hero/poster-1280.jpg'">
+  </div>
+  <div class="wrap">
+    <h1>Plots for sale in and around Chennai</h1>
+    <p class="lead">One place to compare residential plot layouts from Chennai developers. See the approval on every listing, shortlist what you like and visit before you buy.</p>
+    <form class="finder" id="finder" role="search" aria-label="Search plots">
+      <div class="f"><label class="lbl" for="q-area">Locality</label><select id="q-area"><option value="">Anywhere around Chennai</option>{area_opts}</select></div>
+      <div class="f"><label class="lbl" for="q-appr">Approval</label><select id="q-appr"><option value="">Any approval</option><option value="dtcp">DTCP approved</option></select></div>
+      <div class="f"><label class="lbl" for="q-text">Layout or developer</label><input id="q-text" type="search" placeholder="e.g. i5 Palace" autocomplete="off"></div>
+      <button class="btn btn-main" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>Search plots</button>
+    </form>
+    <div class="pop"><span>Popular corridors:</span>{"".join(f'<button type="button" data-corridor="{c}">{c}</button>' for c in CORRIDORS)}</div>
+  </div>
+</section>
+
+<main id="main">
+<div class="strip"><div class="wrap">
+  <div><svg class="ico" aria-hidden="true"><use href="#i-plot"/></svg><p><b>Plots only</b><span>No flats, no villas. Every listing is a residential plot layout.</span></p></div>
+  <div><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><p><b>Approval on every listing</b><span>DTCP, CMDA or RERA status is shown up front, or marked as not declared.</span></p></div>
+  <div><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg><p><b>Shortlist without signing up</b><span>Save plots on this device and compare them later.</span></p></div>
+</div></div>
+
+<section class="mk" id="listings">
+  <div class="wrap">
+    <div class="mk-top">
+      <div><h2>Plot layouts around Chennai</h2><p class="mk-count" id="mkCount" aria-live="polite"><b>{total}</b> plot layouts</p></div>
+      <label class="mk-sort" for="mkSort">Sort by <select id="mkSort"><option value="featured">Featured first</option><option value="az">Name A–Z</option><option value="area">Locality</option></select></label>
+    </div>
+    <div class="mk-grid">
+      <details class="flt" id="flt" open>
+        <summary>Filters <span id="fltN"></span></summary>
+        <form class="flt-in" id="fltForm">
+          <fieldset><legend class="lbl">Corridor</legend>{corr_radios}</fieldset>
+          <fieldset><legend class="lbl">Approval</legend><label><input type="checkbox" name="appr" value="dtcp">DTCP approved<span class="n">{sum(1 for l in LISTINGS if l["appr"]=="DTCP")}</span></label></fieldset>
+          <fieldset><legend class="lbl">Listed by</legend><label><input type="checkbox" name="by" value="verified">Verified developers<span class="n">{nver}</span></label><label><input type="checkbox" name="by" value="sample">Sample listings<span class="n">{total-nver}</span></label></fieldset>
+          <fieldset><legend class="lbl">Shortlist</legend><label><input type="checkbox" name="short" value="1">Shortlisted only</label></fieldset>
+          <button type="button" class="btn btn-line flt-clear" id="fltClear">Clear all filters</button>
+        </form>
+      </details>
+      <div class="results" id="results">
+{cards}
+        <div class="empty" id="empty" hidden><b>No plots match these filters</b>Try another corridor or clear the filters.<br><button type="button" class="btn btn-line" id="emptyClear">Clear filters</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature" id="featured">
+  <div class="wrap">
+    <div class="photo"><img data-src="{img(feat["img"],720,576)}" data-srcset="{img(feat["img"],480,384)} 480w, {img(feat["img"],720,576)} 720w, {img(feat["img"],1080,864)} 1080w" sizes="(max-width:860px) calc(100vw - 32px), 600px" alt="" loading="lazy" decoding="async" width="720" height="576"><span class="illus lbl">Illustrative image</span></div>
+    <div>
+      <span class="tagline lbl"><svg class="ico" aria-hidden="true" style="width:14px;height:14px"><use href="#i-check"/></svg>Featured layout · DTCP approved</span>
+      <h2>i5 Palace, a 92&#8209;acre plot layout near Guduvanchery</h2>
+      <p>{feat["overview"]}</p>
+      <ul class="ticks">{"".join(f'<li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>{h}</li>' for h in ["Wide internal roads","Parks and open spaces","Near GST Road","Bank loan assistance"])}</ul>
+      {byline(feat).replace('class="by"','class="by" style="border:0;padding:0;margin:0 0 24px"')}
+      <div class="row-btns"><a class="btn btn-main" href="projects/{feat["slug"]}.html">View details</a><a class="btn btn-line" href="projects/{feat["slug"]}.html#enquire">Enquire</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="localities">
+  <div class="wrap">
+    <div class="head"><h2>Browse plots by locality</h2><p>Pick an area to see every plot layout listed there.</p></div>
+    <div class="locg">{area_tiles}</div>
+  </div>
+</section>
+
+<section class="dark" id="guide">
+  <div class="wrap">
+    <div class="head"><h2>What to check before you buy a plot</h2><p>Three approvals come up on almost every Chennai plot. Here is what each one means.</p></div>
+    <div class="guide">
+      <div><h3>DTCP approval</h3><p>The Directorate of Town and Country Planning approves layouts outside the Chennai Metropolitan Area, which covers most plots along GST Road, OMR beyond the city and towards Chengalpattu.</p></div>
+      <div><h3>CMDA approval</h3><p>The Chennai Metropolitan Development Authority approves layouts inside the Chennai Metropolitan Area. A plot needs one or the other, depending on where it sits.</p></div>
+      <div><h3>RERA registration</h3><p>Larger projects must also be registered with the Tamil Nadu Real Estate Regulatory Authority. Ask the developer for the registration number and look it up on the TNRERA website.</p></div>
+    </div>
+    <ul class="docs"><li style="border:0;padding-left:0;color:var(--dark-text)">Documents to ask for:</li><li>Sale deed</li><li>Approval copy and layout plan</li><li>Encumbrance certificate</li><li>Patta</li><li>Parent documents</li></ul>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="head"><h2>How Chennai Plots works</h2></div>
+    <ol class="steps">
+      <li><h3>Search</h3><p>Filter plot layouts by corridor, locality and approval.</p></li>
+      <li><h3>Shortlist</h3><p>Save the layouts you like and compare them side by side.</p></li>
+      <li><h3>Visit</h3><p>Enquire and arrange a site visit with the developer.</p></li>
+      <li><h3>Verify and buy</h3><p>Check the documents yourself, then book and register with the developer.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="devband" id="developers">
+  <div class="wrap">
+    <div><h2>Selling plots in Chennai? List your layout here</h2><p>Chennai Plots lists residential plot layouts only. Send your layout details and approval copy to be listed alongside other developers.</p></div>
+    <a class="btn" href="#enquire">List your plots</a>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div><h2>Frequently asked questions</h2><p class="sub">Chennai Plots is a listing marketplace. You buy from the developer, not from us.</p></div>
+    <div>
+      <details class="q" open><summary>Does Chennai Plots sell plots?</summary><p>No. Chennai Plots lists plot layouts from developers. You visit, negotiate, book and register directly with the developer of the layout.</p></details>
+      <details class="q"><summary>What does "Verified developer" mean?</summary><p>The developer has confirmed the details shown on its listings with Chennai Plots. It is not a substitute for checking the approval copy and title documents yourself before you book.</p></details>
+      <details class="q"><summary>Why are some listings marked "Sample listing"?</summary><p>They are placeholders that show how listings from other developers will look. They are not real projects and cannot be booked.</p></details>
+      <details class="q"><summary>Why is there no price on the listings?</summary><p>Plot prices change with availability and plot size, so developers share current pricing when you enquire.</p></details>
+      <details class="q"><summary>Do you list flats, villas or farmland?</summary><p>No. Chennai Plots lists residential plot layouts only.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="enq" id="enquire">
+  <div class="wrap">
+    <div><div><h2>Ask about a plot or list your layout</h2><p>Buyers: tell us which layout you are interested in. Developers: leave your details and mention the layout you want to list.</p>{SOON}</div></div>
+    {enquiry_form()}
+  </div>
+</section>
+</main>
+
+{footer("")}
+
+<div class="mbar"><a href="#listings" data-show-short><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg>Shortlist</a><a href="#flt" id="mFilters"><svg class="ico" aria-hidden="true"><use href="#i-filter"/></svg>Filters</a><a href="#enquire">Enquire</a></div>
+
+<script>
+// Hero video: loads after everything else, skipped on data-saver, slow connections and reduced-motion
+(function(){{
+  const box=document.getElementById('heroMedia');if(!box)return;
+  const mp4=(innerWidth<768&&box.dataset.mp4Sm)||box.dataset.mp4;if(!mp4)return;
+  const c=navigator.connection||{{}};
+  if(c.saveData||/(^|-)2g|3g/.test(c.effectiveType||'')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const start=()=>{{
+    const v=document.createElement('video');
+    v.muted=true;v.loop=true;v.playsInline=true;v.autoplay=true;v.preload='auto';
+    v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');
+    const s=document.createElement('source');s.src=mp4;s.type='video/mp4';v.appendChild(s);
+    v.addEventListener('playing',()=>v.classList.add('on'),{{once:true}});
+    box.appendChild(v);v.play().catch(()=>{{}});
+    new IntersectionObserver(([e])=>{{e.isIntersecting?v.play().catch(()=>{{}}):v.pause()}}).observe(box);
+  }};
+  const idle=()=>('requestIdleCallback' in window)?requestIdleCallback(start,{{timeout:2000}}):setTimeout(start,300);
+  document.readyState==='complete'?idle():addEventListener('load',idle,{{once:true}});
+}})();
+
+// Load photos only when they come near the screen
+const lazy=document.querySelectorAll('img[data-src]');
+const load=img=>{{if(img.dataset.srcset)img.srcset=img.dataset.srcset;img.src=img.dataset.src;img.removeAttribute('data-src')}};
+if('IntersectionObserver' in window){{
+  const lio=new IntersectionObserver(es=>es.forEach(e=>{{if(e.isIntersecting){{load(e.target);lio.unobserve(e.target)}}}}),{{rootMargin:'400px 0px'}});
+  lazy.forEach(i=>lio.observe(i));
+}}else lazy.forEach(load);
+
+// Search, filters, sort, shortlist
+(()=>{{
+  const res=document.getElementById('results'),cards=[...res.querySelectorAll('.lst')],empty=document.getElementById('empty');
+  const form=document.getElementById('fltForm'),count=document.getElementById('mkCount'),fltN=document.getElementById('fltN');
+  const sortSel=document.getElementById('mkSort'),finder=document.getElementById('finder'),qArea=document.getElementById('q-area'),qAppr=document.getElementById('q-appr'),qText=document.getElementById('q-text');
+  const flt=document.getElementById('flt'),wide=matchMedia('(min-width:861px)'),calm=matchMedia('(prefers-reduced-motion: reduce)');
+  const KEY='cp-shortlist';let short=new Set();
+  try{{short=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}}catch(e){{}}
+  const save=()=>{{try{{localStorage.setItem(KEY,JSON.stringify([...short]))}}catch(e){{}}}};
+  const idOf=c=>c.querySelector('h3').textContent,sc=document.getElementById('shortCount');
+  const paintShort=()=>{{cards.forEach(c=>c.querySelector('.fav').setAttribute('aria-pressed',short.has(idOf(c))?'true':'false'));sc.textContent=short.size}};
+  let text='',area='';
+  const state=()=>{{const fd=new FormData(form);return{{corridor:fd.get('corridor')||'',appr:fd.getAll('appr'),by:fd.getAll('by'),short:fd.get('short')==='1'}}}};
+  const apply=animate=>{{
+    const s=state();
+    const run=()=>{{
+      let n=0;
+      cards.forEach(c=>{{const d=c.dataset;
+        const ok=(!s.corridor||d.corridor===s.corridor)&&(!area||d.area===area)&&(!s.appr.length||s.appr.includes(d.appr))&&(!s.by.length||s.by.includes(d.by))&&(!s.short||short.has(idOf(c)))&&(!text||d.name.includes(text));
+        c.hidden=!ok;if(ok)n++}});
+      const by=sortSel.value,pad=c=>String(c.dataset.order).padStart(3,'0');
+      const key=c=>by==='az'?idOf(c).toLowerCase():by==='area'?c.dataset.area.toLowerCase()+pad(c):pad(c);
+      cards.slice().sort((a,b)=>key(a)<key(b)?-1:key(a)>key(b)?1:0).forEach(c=>res.insertBefore(c,empty));
+      empty.hidden=n>0;
+      count.innerHTML='<b>'+n+'</b> plot layout'+(n===1?'':'s')+(area?' in '+area:s.corridor?' on the '+s.corridor+' corridor':'');
+      const active=(s.corridor?1:0)+(area?1:0)+s.appr.length+s.by.length+(s.short?1:0)+(text?1:0);
+      fltN.textContent=active?'('+active+' active)':'';
+      qArea.value=area;qAppr.value=s.appr.length===1?s.appr[0]:'';
+    }};
+    if(animate&&document.startViewTransition&&!calm.matches){{cards.forEach((c,i)=>c.style.viewTransitionName='lst-'+i);document.startViewTransition(run).finished.finally(()=>cards.forEach(c=>c.style.viewTransitionName=''))}}else run();
+  }};
+  const setCorridor=v=>{{const r=form.querySelector('input[name=corridor][value="'+v+'"]');if(r)r.checked=true}};
+  const goResults=()=>document.getElementById('listings').scrollIntoView({{behavior:calm.matches?'auto':'smooth'}});
+  form.addEventListener('change',()=>apply(true));
+  sortSel.addEventListener('change',()=>apply(true));
+  const clear=()=>{{form.reset();text='';area='';qText.value='';apply(true)}};
+  document.getElementById('fltClear').addEventListener('click',clear);
+  document.getElementById('emptyClear').addEventListener('click',clear);
+  finder.addEventListener('submit',e=>{{e.preventDefault();area=qArea.value;setCorridor('');form.querySelectorAll('input[name=appr]').forEach(i=>i.checked=i.value===qAppr.value);text=qText.value.trim().toLowerCase();apply(false);goResults()}});
+  document.querySelectorAll('.pop button').forEach(b=>b.addEventListener('click',()=>{{area='';setCorridor(b.dataset.corridor);apply(false);goResults()}}));
+  document.querySelectorAll('.locg button').forEach(b=>b.addEventListener('click',()=>{{area=b.dataset.area;setCorridor('');apply(false);goResults()}}));
+  document.querySelectorAll('[data-show-short]').forEach(a=>a.addEventListener('click',()=>{{form.querySelector('input[name=short]').checked=short.size>0;apply(false)}}));
+  document.getElementById('mFilters').addEventListener('click',()=>{{flt.open=true}});
+  res.addEventListener('click',e=>{{const f=e.target.closest('.fav');if(!f)return;const id=idOf(f.closest('.lst'));short.has(id)?short.delete(id):short.add(id);save();paintShort();if(state().short)apply(true)}});
+  const syncFlt=()=>{{flt.open=wide.matches}};syncFlt();wide.addEventListener('change',syncFlt);
+  paintShort();apply(false);
+}})();
+{ENQ_JS}</script>
+</body>
+</html>
+'''
+
+
+# ================= PROJECT PAGE =================
+def project(l):
+    name = l["name"]
+    similar = [q for q in REAL if q is not l][:3]
+    facts = l.get("all_facts") or [("Property type", "Residential plots"), ("Approval", l["appr"]), ("Location", f'{l["loc"]} (exact location on request)')]
+    overview = l.get("overview") or (f"{name} is a residential plot layout by {l['dev']} in {l['loc']}. Enquire for the exact location, "
+                                     "current availability, plot sizes and pricing, and to arrange a site visit with the developer.")
+    hl = ""
+    if l.get("highlights"):
+        hl = '<section class="pd-sec"><h2>Highlights</h2><ul class="pd-hl">' + "".join(
+            f'<li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>{h}</li>' for h in l["highlights"]) + "</ul></section>"
+    hero = img(l["img"], 1600, 686, 60)
+    hero_set = f'{img(l["img"],800,450,60)} 800w, {img(l["img"],1200,514,60)} 1200w, {hero} 1600w'
+    corr = f'<span class="corr">{l["corridor"]} corridor</span>' if l["corridor"] else ""
+    return f'''{head(f"{name} | {l['appr']} approved plots in {l['loc']} | {BRAND}",
+                 f"{name}: residential plot layout by {html.unescape(l['dev'])} in {l['loc']}. {l['appr']} approved. Price on request. Enquire on Chennai Plots.", "../assets")}
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{SPRITE}
+{nav("../")}
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a> › <a href="../index.html#listings">Plots</a> › <span aria-current="page">{name}</span></nav>
+    <div class="pd-head">
+      <div><h1>{name}</h1><p class="loc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>{l["loc"]}</p>{corr}</div>
+      <div class="pd-price"><b>Price on request</b><span>Enquire for current availability and pricing</span></div>
+    </div>
+    <div class="pd-gallery"><img src="{hero}" srcset="{hero_set}" sizes="(max-width:1232px) calc(100vw - 32px), 1200px" alt="" fetchpriority="high" decoding="async" width="1600" height="686"><span class="illus lbl">Illustrative image</span><div class="badges">{badges(l)}</div></div>
+
+    <div class="pd-grid">
+      <div>
+        <section class="pd-sec"><h2>Overview</h2><p>{overview}</p></section>
+        <section class="pd-sec"><h2>Key facts</h2><dl class="pd-facts">{"".join(f'<div><dt class="lbl">{a}</dt><dd>{b}</dd></div>' for a,b in facts)}</dl></section>
+        {hl}
+        <section class="pd-sec"><h2>Documents to ask the developer for</h2><ul class="pd-docs"><li>Sale deed</li><li>Approval copy and layout plan</li><li>Encumbrance certificate</li><li>Patta</li><li>Parent documents</li></ul><p class="pd-note">Chennai Plots shows the approval declared by the developer. Check the documents yourself before you book.</p></section>
+      </div>
+      <aside class="pd-side" id="enquire" aria-label="Enquire about this layout">
+        {byline(l)}
+        {enquiry_form(name, "Enquire about this layout", "The developer will share location, plot sizes and current pricing.")}
+        {SOON and '<div style="padding:0 20px 20px;margin-top:-12px">'+SOON+'</div>'}
+      </aside>
+    </div>
+  </div>
+</main>
+
+<section class="sim" aria-labelledby="simh">
+  <div class="wrap">
+    <h2 id="simh">More plot layouts</h2>
+    <div class="results">
+{chr(10).join(card(q, n, "../", lazy=False) for n, q in enumerate(similar))}
+    </div>
+  </div>
+</section>
+
+{footer("../")}
+
+<div class="mbar"><a href="../index.html#listings"><svg class="ico" aria-hidden="true"><use href="#i-plot"/></svg>All plots</a><a href="../index.html#listings" data-show-short><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg>Shortlist</a><a href="#enquire">Enquire</a></div>
+
+<script>{SHORT_JS}{ENQ_JS}</script>
+</body>
+</html>
+'''
+
+
+def fix_similar(page_html):
+    # cards on project pages link relative to /projects/ and carry no shortlist button
+    page_html = page_html.replace('href="../projects/', 'href="')
+    return re.sub(r'\s*<button class="fav".*?</button>', "", page_html, flags=re.S)
+
+
+out = ROOT / "projects"
+out.mkdir(exist_ok=True)
+for old in out.glob("*.html"):
+    old.unlink()
+(ROOT / "index.html").write_text(home())
+for l in REAL:
+    (out / f'{l["slug"]}.html').write_text(fix_similar(project(l)))
+print(f"built index.html and {len(REAL)} project pages; contact {'ON' if WHATSAPP else 'placeholder'}")
